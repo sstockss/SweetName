@@ -2,7 +2,7 @@
 <html lang="mr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>SweetNames</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -20,65 +20,74 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 10px;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
         }
         
         .mobile-app {
             width: 100%;
-            max-width: 375px;
-            height: 700px;
+            height: 100vh;
+            max-width: 100%;
             background-color: #fff;
             overflow: hidden;
             position: relative;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
         }
         
-        /* शीर्ष भाग - इमेज अपलोड */
+        /* शीर्ष भाग - इमेज */
         .header-image {
             width: 100%;
-            height: 33.33vh;
-            min-height: 200px;
+            height: 35vh;
+            min-height: 35vh;
             position: relative;
             overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             background-image: url('Baby_Image.png');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+            flex-shrink: 0;
         }
         
-        /* टॉप मेनू आयकॉन (इमेजवर) */
+        /* टॉप मेनू आयकॉन */
         .top-menu-icon {
             position: absolute;
-            top: 20px;
+            top: 25px;
             right: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
+            background: rgba(255, 255, 255, 0.9);
+            color: #6a11cb;
             border: none;
             border-radius: 50%;
-            width: 45px;
-            height: 45px;
+            width: 50px;
+            height: 50px;
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
             z-index: 100;
-            font-size: 20px;
+            font-size: 22px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .top-menu-icon:hover {
+            transform: scale(1.1);
+            background: white;
         }
         
         /* साइड मेनू */
         .side-menu {
-            position: absolute;
+            position: fixed;
             top: 0;
-            right: -300px;
-            width: 280px;
+            right: -320px;
+            width: 300px;
             height: 100%;
             background-color: white;
-            z-index: 200;
-            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-            transition: right 0.3s ease;
+            z-index: 300;
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
+            transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             padding-top: 20px;
             overflow-y: auto;
         }
@@ -88,14 +97,15 @@
         }
         
         .menu-overlay {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 150;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 250;
             display: none;
+            backdrop-filter: blur(3px);
         }
         
         .menu-overlay.active {
@@ -103,11 +113,11 @@
         }
         
         .menu-header {
-            padding: 20px;
-            background: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+            padding: 25px;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
             color: white;
             text-align: center;
-            font-size: 20px;
+            font-size: 24px;
             font-weight: bold;
             position: relative;
         }
@@ -115,15 +125,20 @@
         /* टॉप बंद बटन */
         .menu-close-btn {
             position: absolute;
-            top: 10px;
-            right: 15px;
+            top: 15px;
+            right: 20px;
             background: none;
             border: none;
             color: white;
-            font-size: 24px;
+            font-size: 28px;
             cursor: pointer;
             padding: 5px;
             line-height: 1;
+            transition: transform 0.3s;
+        }
+        
+        .menu-close-btn:hover {
+            transform: scale(1.2);
         }
         
         .menu-items {
@@ -132,38 +147,60 @@
         }
         
         .menu-item {
-            padding: 18px 25px;
-            border-bottom: 1px solid #eee;
+            padding: 20px 30px;
+            border-bottom: 1px solid #f0f0f0;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 15px;
-            transition: background-color 0.2s;
+            gap: 20px;
+            transition: all 0.3s ease;
         }
         
         .menu-item:hover {
-            background-color: #f5f7fa;
+            background-color: #f8f9ff;
+            padding-left: 35px;
         }
         
         .menu-item i {
             color: #6a11cb;
-            width: 20px;
+            width: 24px;
+            font-size: 20px;
+        }
+        
+        .menu-item span {
+            font-size: 16px;
+            font-weight: 600;
+            color: #444;
         }
         
         /* मेन्यू सेक्शन */
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding-bottom: 70px;
+            display: flex;
+            flex-direction: column;
+            padding: 0 15px;
+        }
+        
         .menu-section {
-            padding: 0 20px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            padding: 0 5px;
         }
         
         .section-title {
             font-size: 18px;
             font-weight: 700;
-            margin-bottom: 15px;
+            margin-bottom: 18px;
             color: #333;
             display: flex;
             justify-content: space-between;
             align-items: center;
+        }
+        
+        .section-title em {
+            font-style: italic;
+            color: #2d3748;
         }
         
         .view-all-btn {
@@ -172,16 +209,23 @@
             font-weight: 600;
             text-decoration: none;
             cursor: pointer;
+            background: rgba(106, 17, 203, 0.1);
+            padding: 6px 12px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
         }
         
         .view-all-btn:hover {
-            text-decoration: underline;
+            background: rgba(106, 17, 203, 0.2);
+            text-decoration: none;
         }
         
+        /* 4 आयकॉन एका रेषेत */
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
+            gap: 12px;
+            width: 100%;
         }
         
         .menu-item-app {
@@ -190,58 +234,65 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 10px 5px;
-            border-radius: 15px;
+            padding: 15px 5px;
+            border-radius: 16px;
             background-color: #f8f9fa;
             transition: all 0.3s ease;
             cursor: pointer;
+            min-height: 100px;
+            width: 100%;
+            box-sizing: border-box;
         }
         
         .menu-item-app:hover {
-            background-color: #e9ecef;
+            background-color: #eef2ff;
             transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(106, 17, 203, 0.15);
         }
         
         .menu-icon {
-            width: 50px;
-            height: 50px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
-            background: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             color: white;
-            font-size: 20px;
+            font-size: 22px;
+            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.3);
         }
         
         .menu-item-app span {
             font-size: 12px;
-            font-weight: 600;
-            color: #333;
+            font-weight: 700;
+            color: #2d3748;
+            line-height: 1.3;
         }
         
-        /* टॅब बटन्स सेक्शन - आयताकृती, ट्रान्सपरंट */
+        /* टॅब बटन्स सेक्शन */
         .tabs-section {
-            padding: 0 20px 15px;
+            margin-bottom: 25px;
             display: flex;
             justify-content: center;
             gap: 15px;
+            padding: 0 5px;
         }
         
         .tab-btn {
             flex: 1;
-            padding: 15px 0;
+            padding: 18px 0;
             border: 2px solid;
-            border-radius: 12px;
-            font-weight: 600;
+            border-radius: 15px;
+            font-weight: 700;
             font-size: 16px;
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             background-color: transparent;
         }
         
@@ -257,7 +308,7 @@
         
         .tab-btn.active {
             transform: scale(1.03);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
         }
         
         .tab-boy.active {
@@ -270,11 +321,11 @@
             color: white;
         }
         
-        /* फ्रेम स्टाईल्स - फक्त आउटलाइन */
+        /* फ्रेम स्टाईल्स */
         .frame-section {
-            border-radius: 15px;
+            border-radius: 18px;
             padding: 20px;
-            margin: 0 20px 20px;
+            margin-bottom: 25px;
             background-color: transparent;
             border: 2px solid;
             box-shadow: none;
@@ -292,38 +343,36 @@
             border-color: #d1c4e9;
         }
         
-        /* डिस्क्रिप्शन सेक्शन - ब्लू आउटलाइन */
+        /* डिस्क्रिप्शन सेक्शन */
         .description-section {
-            margin: 0 20px 20px;
-            padding: 15px;
-            border-radius: 15px;
-            background-color: transparent;
+            margin-bottom: 25px;
+            padding: 20px;
+            border-radius: 18px;
+            background-color: #f0f7ff;
             border: 2px solid #2575fc;
-            box-shadow: none;
         }
         
         .description-text {
             font-size: 14px;
-            line-height: 1.5;
+            line-height: 1.6;
             color: #555;
-            overflow: hidden;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
+            text-align: center;
         }
         
         /* बॉटम नेव्हिगेशन */
         .bottom-nav {
-            position: absolute;
+            position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
             background-color: #fff;
-            border-top: 1px solid #eee;
-            padding: 10px 0;
+            border-top: 1px solid #e2e8f0;
+            padding: 12px 0;
             display: flex;
             justify-content: space-around;
             align-items: center;
+            z-index: 100;
+            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.05);
         }
         
         .nav-item {
@@ -335,6 +384,7 @@
             cursor: pointer;
             color: #888;
             transition: all 0.3s ease;
+            flex: 1;
         }
         
         .nav-item.active {
@@ -346,7 +396,7 @@
         }
         
         .nav-icon {
-            font-size: 20px;
+            font-size: 22px;
             margin-bottom: 5px;
         }
         
@@ -356,78 +406,155 @@
         }
         
         /* स्क्रोलबार स्टाइलिंग */
-        .content {
-            height: calc(100% - 33.33vh);
-            overflow-y: auto;
-            padding-bottom: 70px;
-        }
-        
         .content::-webkit-scrollbar {
-            width: 5px;
+            width: 6px;
         }
         
         .content::-webkit-scrollbar-track {
             background: #f1f1f1;
+            border-radius: 10px;
         }
         
         .content::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, #6a11cb, #2575fc);
+            border-radius: 10px;
+        }
+        
+        .side-menu::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .side-menu::-webkit-scrollbar-track {
+            background: #f8f9fa;
+        }
+        
+        .side-menu::-webkit-scrollbar-thumb {
             background: #6a11cb;
             border-radius: 10px;
         }
         
-        /* स्क्रीन साईझसाठी रेस्पॉन्सिव्ह डिझाइन */
-        @media (max-width: 400px) {
+        /* रेस्पॉन्सिव्हनेस - मोबाईल फिट */
+        @media (max-width: 480px) {
             .mobile-app {
-                height: 650px;
-            }
-            
-            .menu-grid {
-                grid-template-columns: repeat(3, 1fr);
+                height: 100vh;
+                max-width: 100vw;
             }
             
             .header-image {
                 height: 30vh;
-                min-height: 180px;
+                min-height: 30vh;
             }
             
-            .content {
-                height: calc(100% - 30vh);
+            .menu-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 10px;
+            }
+            
+            .menu-item-app {
+                padding: 12px 3px;
+                min-height: 95px;
+            }
+            
+            .menu-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+            
+            .menu-item-app span {
+                font-size: 11px;
             }
             
             .tab-btn {
-                padding: 12px 0;
+                padding: 16px 0;
                 font-size: 15px;
             }
             
-            .side-menu {
-                width: 250px;
-                right: -250px;
-            }
-        }
-        
-        @media (max-height: 700px) {
-            .mobile-app {
-                height: 600px;
-            }
-            
-            .header-image {
-                height: 28vh;
-                min-height: 170px;
+            .section-title {
+                font-size: 17px;
             }
             
             .content {
-                height: calc(100% - 28vh);
+                padding: 0 10px;
+            }
+            
+            .menu-section, .tabs-section {
+                padding: 0;
+            }
+            
+            .frame-section {
+                padding: 18px;
+            }
+        }
+        
+        @media (max-width: 380px) {
+            .menu-grid {
+                gap: 8px;
+            }
+            
+            .menu-item-app {
+                padding: 10px 2px;
+                min-height: 90px;
+            }
+            
+            .menu-icon {
+                width: 46px;
+                height: 46px;
+                font-size: 18px;
+            }
+            
+            .menu-item-app span {
+                font-size: 10px;
+            }
+            
+            .tab-btn {
+                font-size: 14px;
+                padding: 14px 0;
+            }
+            
+            .section-title {
+                font-size: 16px;
+            }
+        }
+        
+        @media (max-width: 320px) {
+            .menu-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 6px;
+            }
+            
+            .menu-item-app {
+                padding: 8px 1px;
+                min-height: 85px;
+            }
+            
+            .menu-icon {
+                width: 42px;
+                height: 42px;
+                font-size: 17px;
+            }
+            
+            .menu-item-app span {
+                font-size: 9px;
+                font-weight: 600;
             }
         }
         
         /* अॅनिमेशन */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(25px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
         }
         
         .menu-section, .tabs-section, .frame-section, .description-section {
-            animation: fadeIn 0.8s ease-out forwards;
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
         }
         
         .menu-section:nth-child(1) { animation-delay: 0.1s; }
@@ -436,6 +563,17 @@
         .description-section { animation-delay: 0.4s; }
         .loans-frame { animation-delay: 0.5s; }
         .services-frame { animation-delay: 0.6s; }
+        
+        /* मोबाईल डिव्हाईससाठी विशेष */
+        @supports (-webkit-touch-callout: none) {
+            body {
+                height: -webkit-fill-available;
+            }
+            
+            .mobile-app {
+                height: -webkit-fill-available;
+            }
+        }
     </style>
 </head>
 <body>
@@ -452,7 +590,7 @@
         <div class="menu-overlay" id="menuOverlay"></div>
         <div class="side-menu" id="sideMenu">
             <div class="menu-header">
-                <i class="fas fa-baby"></i> SweetName
+                <i class="fas fa-heart"></i> SweetName
                 <button class="menu-close-btn" id="closeMenuBtn">
                     <i class="fas fa-times"></i>
                 </button>
@@ -467,7 +605,7 @@
                     <span>आमच्याबद्दल</span>
                 </li>
                 <li class="menu-item" id="blogMenuItem">
-                    <i class="fas fa-blog"></i>
+                    <i class="fas fa-newspaper"></i>
                     <span>ब्लॉग</span>
                 </li>
                 <li class="menu-item" id="disclaimerMenuItem">
@@ -483,7 +621,7 @@
                     <span>टर्म्स ऑफ सर्व्हिस</span>
                 </li>
                 <li class="menu-item" id="contactMenuItem">
-                    <i class="fas fa-address-book"></i>
+                    <i class="fas fa-envelope"></i>
                     <span>संपर्क</span>
                 </li>
             </ul>
@@ -491,7 +629,7 @@
         
         <!-- मुख्य सामग्री -->
         <div class="content">
-            <!-- पममतेची सावली मेन्यू -->
+            <!-- ममतेची सावली मेन्यू -->
             <div class="menu-section">
                 <div class="section-title">
                     <em>ममतेची सावली</em>
@@ -500,42 +638,42 @@
                 <div class="menu-grid">
                     <div class="menu-item-app">
                         <div class="menu-icon">
-                            <i class="fas fa-mobile-alt"></i>
+                            <i class="fas fa-comments"></i>
                         </div>
                         <span>वात्सल्य संवाद</span>
                     </div>
                     <div class="menu-item-app">
                         <div class="menu-icon">
-                            <i class="fas fa-university"></i>
+                            <i class="fas fa-baby-carriage"></i>
                         </div>
                         <span>गर्भसंस्कार दिनचर्या</span>
                     </div>
                     <div class="menu-item-app">
                         <div class="menu-icon">
-                            <i class="fas fa-download"></i>
+                            <i class="fas fa-brain"></i>
                         </div>
                         <span>बालमनाचे विश्व</span>
                     </div>
                     <div class="menu-item-app">
                         <div class="menu-icon">
-                            <i class="fas fa-balance-scale"></i>
+                            <i class="fas fa-heartbeat"></i>
                         </div>
                         <span>आईचे आरोग्य</span>
                     </div>
                 </div>
             </div>
             
-            <!-- टॅब बटन्स - ममतेची सावली च्या खाली -->
+            <!-- टॅब बटन्स -->
             <div class="tabs-section">
                 <button class="tab-btn tab-boy active" id="boyTab">
-                    <i class="fas fa-male"></i> Baby Boy
+                    <i class="fas fa-child"></i> Baby Boy
                 </button>
                 <button class="tab-btn tab-girl" id="girlTab">
-                    <i class="fas fa-female"></i> Baby Girl
+                    <i class="fas fa-child"></i> Baby Girl
                 </button>
             </div>
             
-            <!-- रिचार्ज आणि बिल सेक्शन - फक्त आउटलाइनसह -->
+            <!-- शुभ नामावली सेक्शन -->
             <div class="frame-section recharge-frame">
                 <div class="section-title">
                     <em>शुभ नामावली</em>
@@ -544,39 +682,39 @@
                 <div class="menu-grid">
                     <div class="menu-item-app">
                         <div class="menu-icon">
-                            <i class="fas fa-mobile-alt"></i>
+                            <i class="fas fa-crown"></i>
                         </div>
                         <span>क्लासिकल नावे</span>
                     </div>
                     <div class="menu-item-app">
                         <div class="menu-icon">
-                            <i class="fas fa-credit-card"></i>
+                            <i class="fas fa-fire"></i>
                         </div>
                         <span>ट्रेंडिंग नावे</span>
                     </div>
                     <div class="menu-item-app">
                         <div class="menu-icon">
-                            <i class="fas fa-bolt"></i>
+                            <i class="fas fa-star"></i>
                         </div>
                         <span>सेलिब्रिटी चॉईस</span>
                     </div>
                     <div class="menu-item-app">
                         <div class="menu-icon">
-                            <i class="fas fa-rupee-sign"></i>
+                            <i class="fas fa-gem"></i>
                         </div>
                         <span>दुर्मिळ नामावली</span>
                     </div>
                 </div>
             </div>
             
-            <!-- डिस्क्रिप्शन सेक्शन - ब्लू आउटलाइन, ट्रान्सपरंट बॅकग्राउंड -->
+            <!-- डिस्क्रिप्शन सेक्शन -->
             <div class="description-section">
                 <div class="description-text" id="descriptionText">
                     लहान बाळांसाठी सुंदर नावे, अर्थ, संस्कार आणि खास माहिती, SweetName वर मिळतील फक्त सुंदर नावे.
                 </div>
             </div>
             
-            <!-- लोन आणि इन्शुरन्स सेक्शन - फक्त आउटलाइनसह -->
+            <!-- अभिजात नामसंच सेक्शन -->
             <div class="frame-section loans-frame">
                 <div class="section-title">
                     <em>अभिजात नामसंच</em>
@@ -585,32 +723,32 @@
                 <div class="menu-grid">
                     <div class="menu-item-app">
                         <div class="menu-icon">
-                            <i class="fas fa-chart-line"></i>
+                            <i class="fas fa-sun"></i>
                         </div>
                         <span>चैतन्यमयी नावे</span>
                     </div>
                     <div class="menu-item-app">
                         <div class="menu-icon">
-                            <i class="fas fa-shield-alt"></i>
+                            <i class="fas fa-layer-group"></i>
                         </div>
                         <span>दुहेरी अर्थछटा</span>
                     </div>
                     <div class="menu-item-app">
                         <div class="menu-icon">
-                            <i class="fas fa-home"></i>
+                            <i class="fas fa-paint-brush"></i>
                         </div>
                         <span>लावण्यमयी नामावली</span>
                     </div>
                     <div class="menu-item-app">
                         <div class="menu-icon">
-                            <i class="fas fa-search"></i>
+                            <i class="fas fa-hands-heart"></i>
                         </div>
                         <span>वात्सल्यपूर्ण नावे</span>
                     </div>
                 </div>
             </div>
             
-            <!-- अतिरिक्त सेवा सेक्शन - फक्त आउटलाइनसह -->
+            <!-- प्रीमियम नामश्रेणी सेक्शन -->
             <div class="frame-section services-frame">
                 <div class="section-title">
                     <em>प्रीमियम नामश्रेणी</em>
@@ -619,25 +757,25 @@
                 <div class="menu-grid">
                     <div class="menu-item-app">
                         <div class="menu-icon">
-                            <i class="fas fa-bell"></i>
+                            <i class="fas fa-award"></i>
                         </div>
                         <span>अभिजात अर्थमंजिरी</span>
                     </div>
                     <div class="menu-item-app">
                         <div class="menu-icon">
-                            <i class="fas fa-history"></i>
+                            <i class="fas fa-dove"></i>
                         </div>
                         <span>सात्विक नामसंग्रह</span>
                     </div>
                     <div class="menu-item-app">
                         <div class="menu-icon">
-                            <i class="fas fa-cog"></i>
+                            <i class="fas fa-palette"></i>
                         </div>
                         <span>कलात्मक नामावली</span>
                     </div>
                     <div class="menu-item-app">
                         <div class="menu-icon">
-                            <i class="fas fa-question-circle"></i>
+                            <i class="fas fa-star-and-crescent"></i>
                         </div>
                         <span>नक्षत्रवेध नामावली</span>
                     </div>
@@ -655,25 +793,25 @@
             </div>
             <div class="nav-item">
                 <div class="nav-icon">
-                    <i class="fas fa-exchange-alt"></i>
+                    <i class="fas fa-th-large"></i>
                 </div>
                 <div class="nav-text">Categories</div>
             </div>
 			<div class="nav-item">
                 <div class="nav-icon">
-                    <i class="fas fa-exchange-alt"></i>
+                    <i class="fas fa-search"></i>
                 </div>
                 <div class="nav-text">Search</div>
             </div>
             <div class="nav-item">
                 <div class="nav-icon">
-                    <i class="fas fa-credit-card"></i>
+                    <i class="fas fa-heart"></i>
                 </div>
                 <div class="nav-text">Favorites</div>
             </div>
             <div class="nav-item">
                 <div class="nav-icon">
-                    <i class="fas fa-user"></i>
+                    <i class="fas fa-share-alt"></i>
                 </div>
                 <div class="nav-text">Invite</div>
             </div>
@@ -690,67 +828,31 @@
         hamburgerBtn.addEventListener('click', function() {
             sideMenu.classList.add('active');
             menuOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
         });
         
         closeMenuBtn.addEventListener('click', function() {
             sideMenu.classList.remove('active');
             menuOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
         });
         
         menuOverlay.addEventListener('click', function() {
             sideMenu.classList.remove('active');
             menuOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
         });
         
         // साइड मेनू आयटम्स
-        const homeMenuItem = document.getElementById('homeMenuItem');
-        const aboutMenuItem = document.getElementById('aboutMenuItem');
-        const blogMenuItem = document.getElementById('blogMenuItem');
-        const disclaimerMenuItem = document.getElementById('disclaimerMenuItem');
-        const privacyMenuItem = document.getElementById('privacyMenuItem');
-        const termsMenuItem = document.getElementById('termsMenuItem');
-        const contactMenuItem = document.getElementById('contactMenuItem');
-        
-        homeMenuItem.addEventListener('click', function() {
-            alert('होम पेज दाखवले जाईल');
-            sideMenu.classList.remove('active');
-            menuOverlay.classList.remove('active');
-        });
-        
-        aboutMenuItem.addEventListener('click', function() {
-            alert('आमच्याबद्दल माहिती दाखवली जाईल');
-            sideMenu.classList.remove('active');
-            menuOverlay.classList.remove('active');
-        });
-        
-        blogMenuItem.addEventListener('click', function() {
-            alert('ब्लॉग पेज दाखवला जाईल');
-            sideMenu.classList.remove('active');
-            menuOverlay.classList.remove('active');
-        });
-        
-        disclaimerMenuItem.addEventListener('click', function() {
-            alert('डिस्क्लेमर पेज दाखवला जाईल');
-            sideMenu.classList.remove('active');
-            menuOverlay.classList.remove('active');
-        });
-        
-        privacyMenuItem.addEventListener('click', function() {
-            alert('प्रायव्हेसी पॉलिसी पेज दाखवला जाईल');
-            sideMenu.classList.remove('active');
-            menuOverlay.classList.remove('active');
-        });
-        
-        termsMenuItem.addEventListener('click', function() {
-            alert('टर्म्स ऑफ सर्व्हिस पेज दाखवला जाईल');
-            sideMenu.classList.remove('active');
-            menuOverlay.classList.remove('active');
-        });
-        
-        contactMenuItem.addEventListener('click', function() {
-            alert('संपर्क पेज दाखवला जाईल');
-            sideMenu.classList.remove('active');
-            menuOverlay.classList.remove('active');
+        const menuItems = document.querySelectorAll('.menu-item');
+        menuItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const itemText = this.querySelector('span').textContent;
+                alert(`${itemText} पेज दाखवला जाईल`);
+                sideMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
         });
         
         // टॅब बटन फंक्शन
@@ -761,36 +863,22 @@
             boyTab.classList.add('active');
             girlTab.classList.remove('active');
             console.log("Baby Boy टॅब निवडला");
-            alert("Baby Boy टॅब निवडला");
         });
         
         girlTab.addEventListener('click', function() {
             girlTab.classList.add('active');
             boyTab.classList.remove('active');
             console.log("Baby Girl टॅब निवडला");
-            alert("Baby Girl टॅब निवडला");
         });
         
         // View All लिंक्स
-        const viewTransfers = document.getElementById('viewTransfers');
-        const viewRecharge = document.getElementById('viewRecharge');
-        const viewLoans = document.getElementById('viewLoans');
-        const viewServices = document.getElementById('viewServices');
-        
-        viewTransfers.addEventListener('click', function() {
-            alert('ममतेची सावली सेक्शनचे सर्व आयटम दाखवले जातील');
-        });
-        
-        viewRecharge.addEventListener('click', function() {
-            alert('शुभ नामावली सेक्शनचे सर्व आयटम दाखवले जातील');
-        });
-        
-        viewLoans.addEventListener('click', function() {
-            alert('अभिजात नामसंच सेक्शनचे सर्व आयटम दाखवले जातील');
-        });
-        
-        viewServices.addEventListener('click', function() {
-            alert('प्रीमियम नामश्रेणी सेक्शनचे सर्व आयटम दाखवले जातील');
+        const viewButtons = document.querySelectorAll('.view-all-btn');
+        viewButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const sectionTitle = this.closest('.section-title').querySelector('em').textContent;
+                alert(`${sectionTitle} सेक्शनचे सर्व आयटम दाखवले जातील`);
+            });
         });
         
         // मेन्यू आयटम क्लिक इव्हेंट
@@ -804,12 +892,9 @@
         // बॉटम नेव्हिगेशन क्लिक इव्हेंट
         document.querySelectorAll('.nav-item').forEach(item => {
             item.addEventListener('click', function() {
-                // सक्रिय वर्ग काढा
                 document.querySelectorAll('.nav-item').forEach(nav => {
                     nav.classList.remove('active');
                 });
-                
-                // सध्या क्लिक केलेल्या आयटमला सक्रिय वर्ग द्या
                 this.classList.add('active');
                 
                 const navText = this.querySelector('.nav-text').textContent;
@@ -817,43 +902,53 @@
             });
         });
         
-        // स्क्रीन साईझसाठी रेस्पॉन्सिव्हनेस
-        function adjustLayout() {
-            const screenHeight = window.innerHeight;
-            const headerImage = document.querySelector('.header-image');
-            const contentArea = document.querySelector('.content');
-            const mobileApp = document.querySelector('.mobile-app');
+        // स्क्रीन फुल स्क्रीन फिट करणे
+        function adjustForMobile() {
+            const vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
             
-            // लहान स्क्रीनसाठी समायोजन
-            if (screenHeight < 650) {
-                mobileApp.style.height = '580px';
-                headerImage.style.height = '30vh';
-                headerImage.style.minHeight = '170px';
-                contentArea.style.height = 'calc(100% - 30vh)';
-            } else {
-                mobileApp.style.height = '700px';
-                headerImage.style.height = '33.33vh';
-                headerImage.style.minHeight = '200px';
-                contentArea.style.height = 'calc(100% - 33.33vh)';
+            const mobileApp = document.querySelector('.mobile-app');
+            const content = document.querySelector('.content');
+            
+            // मोबाईल स्क्रीनसाठी ऑटो समायोजन
+            if (window.innerWidth <= 480) {
+                mobileApp.style.height = '100vh';
+                content.style.paddingBottom = '70px';
+                
+                // सर्व 4 आयकॉन एका रेषेत राहतील याची खात्री
+                const menuGrids = document.querySelectorAll('.menu-grid');
+                menuGrids.forEach(grid => {
+                    grid.style.gridTemplateColumns = 'repeat(4, 1fr)';
+                });
             }
             
-            // अतिरिक्त लहान स्क्रीनसाठी
-            if (window.innerWidth < 350) {
-                document.querySelectorAll('.menu-grid').forEach(grid => {
-                    grid.style.gap = '10px';
-                });
-                
-                // टॅब बटन्ससाठी लहान फॉन्ट
-                document.querySelectorAll('.tab-btn').forEach(btn => {
-                    btn.style.fontSize = '14px';
-                    btn.style.padding = '10px 0';
-                });
+            // iOS साठी विशेष समायोजन
+            if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
+                document.body.style.height = 'calc(var(--vh, 1vh) * 100)';
+                mobileApp.style.height = 'calc(var(--vh, 1vh) * 100)';
             }
         }
         
         // पहिल्यांदा आणि विंडो रिसाइझवर लेआउट समायोजित करा
-        window.addEventListener('load', adjustLayout);
-        window.addEventListener('resize', adjustLayout);
+        window.addEventListener('load', adjustForMobile);
+        window.addEventListener('resize', adjustForMobile);
+        window.addEventListener('orientationchange', adjustForMobile);
+        
+        // सुरुवातीला adjust करा
+        adjustForMobile();
+        
+        // टच डिव्हाईससाठी हॉवर इफेक्ट समायोजन
+        if ('ontouchstart' in window) {
+            document.querySelectorAll('.menu-item-app, .nav-item, .menu-item').forEach(element => {
+                element.addEventListener('touchstart', function() {
+                    this.classList.add('touch-active');
+                });
+                
+                element.addEventListener('touchend', function() {
+                    this.classList.remove('touch-active');
+                });
+            });
+        }
     </script>
 </body>
 </html>
