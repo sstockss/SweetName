@@ -177,7 +177,7 @@
         .content {
             flex: 1;
             overflow-y: auto;
-            padding-bottom: 70px;
+            padding-bottom: 100px; /* बॉटम स्पेस वाढविले */
             display: flex;
             flex-direction: column;
             padding: 0 15px;
@@ -186,6 +186,7 @@
         .menu-section {
             margin-bottom: 25px;
             padding: 0 5px;
+			margin-top: 20px;
         }
         
         .section-title {
@@ -220,28 +221,29 @@
             text-decoration: none;
         }
         
-        /* 4 आयकॉन एका रेषेत */
+        /* 4 आयकॉन एका रेषेत - सुधारित */
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 12px;
             width: 100%;
+            align-items: stretch; /* सर्व आयटम्स समान उंचीत */
         }
         
         .menu-item-app {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             text-align: center;
             padding: 15px 5px;
             border-radius: 16px;
             background-color: #f8f9fa;
             transition: all 0.3s ease;
             cursor: pointer;
-            min-height: 100px;
+            min-height: 120px; /* स्थिर उंची */
             width: 100%;
             box-sizing: border-box;
+            justify-content: flex-start; /* आयकॉन वरच्या बाजूला */
         }
         
         .menu-item-app:hover {
@@ -250,9 +252,10 @@
             box-shadow: 0 8px 20px rgba(106, 17, 203, 0.15);
         }
         
+        /* निळे गोल आयकॉन - स्थिर स्थितीत */
         .menu-icon {
-            width: 55px;
-            height: 55px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
             display: flex;
@@ -260,8 +263,18 @@
             align-items: center;
             margin-bottom: 10px;
             color: white;
-            font-size: 22px;
+            font-size: 28px;
             box-shadow: 0 5px 15px rgba(106, 17, 203, 0.3);
+            flex-shrink: 0; /* आयकॉनचा आकार बदलू नये */
+        }
+        
+        /* टेक्स्टसाठी स्थिर कंटेनर */
+        .menu-text-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 40px; /* टेक्स्टसाठी स्थिर उंची */
+            width: 100%;
         }
         
         .menu-item-app span {
@@ -269,6 +282,12 @@
             font-weight: 700;
             color: #2d3748;
             line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2; /* फक्त 2 ओळी दाखवा */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-height: 2.6em; /* 2 ओळींसाठी */
         }
         
         /* टॅब बटन्स सेक्शन */
@@ -282,7 +301,7 @@
         
         .tab-btn {
             flex: 1;
-            padding: 18px 0;
+            padding: 12px 0;
             border: 2px solid;
             border-radius: 15px;
             font-weight: 700;
@@ -311,14 +330,17 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
         }
         
+        /* बेबी बॉय बटन कलर फिक्स */
         .tab-boy.active {
-            background-color: #4a6bd3;
-            color: white;
+            background-color: #4a6bd3 !important;
+            color: white !important;
+            border-width: 2px;
         }
         
         .tab-girl.active {
-            background-color: #ff7ba3;
-            color: white;
+            background-color: #ff7ba3 !important;
+            color: white !important;
+            border-width: 2px;
         }
         
         /* फ्रेम स्टाईल्स */
@@ -343,13 +365,13 @@
             border-color: #d1c4e9;
         }
         
-        /* डिस्क्रिप्शन सेक्शन */
+        /* डिस्क्रिप्शन सेक्शन - बॉर्डर हाईट कमी केलेली */
         .description-section {
             margin-bottom: 25px;
-            padding: 20px;
-            border-radius: 18px;
+            padding: 15px 20px; /* पेडिंग कमी केले */
+            border-radius: 14px; /* बॉर्डर रेडियस कमी केले */
             background-color: #f0f7ff;
-            border: 2px solid #2575fc;
+            border: 1px solid #2575fc; /* बॉर्डर हाईट 30% कमी केले (2px वरुन 1px) */
         }
         
         .description-text {
@@ -357,6 +379,46 @@
             line-height: 1.6;
             color: #555;
             text-align: center;
+        }
+        
+        /* Share This App बटन सेक्शन */
+        .share-app-section {
+            margin-bottom: 35px; /* खाली अतिरिक्त स्पेस */
+            padding: 0 5px;
+            text-align: center;
+            animation: fadeInUp 0.7s ease-out forwards;
+            opacity: 0;
+            animation-delay: 0.7s;
+        }
+        
+        .share-app-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 16px 30px;
+            border-radius: 50px;
+            background-color: transparent;
+            border: 2px solid rgba(0, 0, 0, 0.25); /* डार्क आउटलाईन */
+            color: #333;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        
+        .share-app-btn:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+            border-color: rgba(0, 0, 0, 0.35);
+            transform: translateY(-3px);
+        }
+        
+        .share-app-btn i {
+            font-size: 20px;
+            color: #6a11cb;
         }
         
         /* बॉटम नेव्हिगेशन */
@@ -452,17 +514,25 @@
             
             .menu-item-app {
                 padding: 12px 3px;
-                min-height: 95px;
+                min-height: 110px; /* मोबाईलसाठी सुधारित उंची */
             }
             
+            /* मोबाईलसाठी आयकॉन - मोठे केलेले */
             .menu-icon {
-                width: 50px;
-                height: 50px;
-                font-size: 20px;
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+                margin-bottom: 8px;
+            }
+            
+            .menu-text-container {
+                min-height: 35px; /* मोबाईलसाठी सुधारित */
             }
             
             .menu-item-app span {
                 font-size: 11px;
+                -webkit-line-clamp: 2; /* मोबाईलवरही 2 ओळी */
+                max-height: 2.4em;
             }
             
             .tab-btn {
@@ -476,6 +546,7 @@
             
             .content {
                 padding: 0 10px;
+                padding-bottom: 100px; /* मोबाईलसाठी अतिरिक्त स्पेस */
             }
             
             .menu-section, .tabs-section {
@@ -484,6 +555,12 @@
             
             .frame-section {
                 padding: 18px;
+            }
+            
+            .share-app-btn {
+                padding: 14px 25px;
+                font-size: 15px;
+                max-width: 280px;
             }
         }
         
@@ -494,17 +571,25 @@
             
             .menu-item-app {
                 padding: 10px 2px;
-                min-height: 90px;
+                min-height: 105px;
             }
             
+            /* छोट्या मोबाईलसाठी आयकॉन */
             .menu-icon {
-                width: 46px;
-                height: 46px;
-                font-size: 18px;
+                width: 55px;
+                height: 55px;
+                font-size: 22px;
+                margin-bottom: 6px;
+            }
+            
+            .menu-text-container {
+                min-height: 32px;
             }
             
             .menu-item-app span {
                 font-size: 10px;
+                -webkit-line-clamp: 2;
+                max-height: 2.2em;
             }
             
             .tab-btn {
@@ -514,6 +599,12 @@
             
             .section-title {
                 font-size: 16px;
+            }
+            
+            .share-app-btn {
+                padding: 12px 20px;
+                font-size: 14px;
+                max-width: 250px;
             }
         }
         
@@ -525,18 +616,32 @@
             
             .menu-item-app {
                 padding: 8px 1px;
-                min-height: 85px;
+                min-height: 100px;
             }
             
+            /* अतिशय छोट्या मोबाईलसाठी आयकॉन */
             .menu-icon {
-                width: 42px;
-                height: 42px;
-                font-size: 17px;
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+                margin-bottom: 5px;
+            }
+            
+            .menu-text-container {
+                min-height: 30px;
             }
             
             .menu-item-app span {
                 font-size: 9px;
                 font-weight: 600;
+                -webkit-line-clamp: 2;
+                max-height: 2em;
+            }
+            
+            .share-app-btn {
+                padding: 10px 18px;
+                font-size: 13px;
+                max-width: 230px;
             }
         }
         
@@ -638,27 +743,35 @@
                 <div class="menu-grid">
                     <div class="menu-item-app">
                         <div class="menu-icon">
-                            <i class="fas fa-comments"></i>
+                            <i class="far fa-comments"></i>
                         </div>
-                        <span>वात्सल्य संवाद</span>
+                        <div class="menu-text-container">
+                            <span>वात्सल्य संवाद</span>
+                        </div>
                     </div>
                     <div class="menu-item-app">
                         <div class="menu-icon">
                             <i class="fas fa-baby-carriage"></i>
                         </div>
-                        <span>गर्भसंस्कार दिनचर्या</span>
+                        <div class="menu-text-container">
+                            <span>गर्भसंस्कार दिनचर्या</span>
+                        </div>
                     </div>
                     <div class="menu-item-app">
                         <div class="menu-icon">
                             <i class="fas fa-brain"></i>
                         </div>
-                        <span>बालमनाचे विश्व</span>
+                        <div class="menu-text-container">
+                            <span>बालमनाचे विश्व</span>
+                        </div>
                     </div>
                     <div class="menu-item-app">
                         <div class="menu-icon">
                             <i class="fas fa-heartbeat"></i>
                         </div>
-                        <span>आईचे आरोग्य</span>
+                        <div class="menu-text-container">
+                            <span>आईचे आरोग्य</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -666,10 +779,10 @@
             <!-- टॅब बटन्स -->
             <div class="tabs-section">
                 <button class="tab-btn tab-boy active" id="boyTab">
-                    <i class="fas fa-child"></i> Baby Boy
+                    <i class="fas fa-circle-notch"></i> Special Boys Names
                 </button>
                 <button class="tab-btn tab-girl" id="girlTab">
-                    <i class="fas fa-child"></i> Baby Girl
+                    <i class="fas fa-circle-notch"></i> Special Girls Names
                 </button>
             </div>
             
@@ -684,25 +797,33 @@
                         <div class="menu-icon">
                             <i class="fas fa-crown"></i>
                         </div>
-                        <span>क्लासिकल नावे</span>
+                        <div class="menu-text-container">
+                            <span>क्लासिकल नावे</span>
+                        </div>
                     </div>
                     <div class="menu-item-app">
                         <div class="menu-icon">
                             <i class="fas fa-fire"></i>
                         </div>
-                        <span>ट्रेंडिंग नावे</span>
+                        <div class="menu-text-container">
+                            <span>ट्रेंडिंग नावे</span>
+                        </div>
                     </div>
                     <div class="menu-item-app">
                         <div class="menu-icon">
-                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
                         </div>
-                        <span>सेलिब्रिटी चॉईस</span>
+                        <div class="menu-text-container">
+                            <span>सेलिब्रिटी चॉईस</span>
+                        </div>
                     </div>
                     <div class="menu-item-app">
                         <div class="menu-icon">
                             <i class="fas fa-gem"></i>
                         </div>
-                        <span>दुर्मिळ नामावली</span>
+                        <div class="menu-text-container">
+                            <span>दुर्मिळ नामावली</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -710,7 +831,7 @@
             <!-- डिस्क्रिप्शन सेक्शन -->
             <div class="description-section">
                 <div class="description-text" id="descriptionText">
-                    लहान बाळांसाठी सुंदर नावे, अर्थ, संस्कार आणि खास माहिती, SweetName वर मिळतील फक्त सुंदर नावे.
+                    <em>अर्थासह सुंदर नावांचा खजिना! तुमच्या बाळासाठी खास नाव शोधा SweetName सोबत.</em>
                 </div>
             </div>
             
@@ -723,27 +844,35 @@
                 <div class="menu-grid">
                     <div class="menu-item-app">
                         <div class="menu-icon">
-                            <i class="fas fa-sun"></i>
+                            <i class="far fa-sun"></i>
                         </div>
-                        <span>चैतन्यमयी नावे</span>
+                        <div class="menu-text-container">
+                            <span>चैतन्यमयी नावे</span>
+                        </div>
                     </div>
                     <div class="menu-item-app">
                         <div class="menu-icon">
                             <i class="fas fa-layer-group"></i>
                         </div>
-                        <span>दुहेरी अर्थछटा</span>
+                        <div class="menu-text-container">
+                            <span>दुहेरी अर्थछटा</span>
+                        </div>
                     </div>
                     <div class="menu-item-app">
                         <div class="menu-icon">
                             <i class="fas fa-paint-brush"></i>
                         </div>
-                        <span>लावण्यमयी नामावली</span>
+                        <div class="menu-text-container">
+                            <span>लावण्यमयी नामावली</span>
+                        </div>
                     </div>
                     <div class="menu-item-app">
                         <div class="menu-icon">
                             <i class="fas fa-hands-heart"></i>
                         </div>
-                        <span>वात्सल्यपूर्ण नावे</span>
+                        <div class="menu-text-container">
+                            <span>वात्सल्यपूर्ण नावे</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -759,27 +888,43 @@
                         <div class="menu-icon">
                             <i class="fas fa-award"></i>
                         </div>
-                        <span>अभिजात अर्थमंजिरी</span>
+                        <div class="menu-text-container">
+                            <span>अभिजात अर्थमंजिरी</span>
+                        </div>
                     </div>
                     <div class="menu-item-app">
                         <div class="menu-icon">
                             <i class="fas fa-dove"></i>
                         </div>
-                        <span>सात्विक नामसंग्रह</span>
+                        <div class="menu-text-container">
+                            <span>सात्विक नामसंग्रह</span>
+                        </div>
                     </div>
                     <div class="menu-item-app">
                         <div class="menu-icon">
                             <i class="fas fa-palette"></i>
                         </div>
-                        <span>कलात्मक नामावली</span>
+                        <div class="menu-text-container">
+                            <span>कलात्मक नामावली</span>
+                        </div>
                     </div>
                     <div class="menu-item-app">
                         <div class="menu-icon">
                             <i class="fas fa-star-and-crescent"></i>
                         </div>
-                        <span>नक्षत्रवेध नामावली</span>
+                        <div class="menu-text-container">
+                            <span>नक्षत्रवेध नामावली</span>
+                        </div>
                     </div>
                 </div>
+            </div>
+            
+            <!-- शेअर धिस app बटन -->
+            <div class="share-app-section">
+                <button class="share-app-btn">
+                    <i class="fas fa-share-alt"></i>
+                    <span>Invite your friends to join</span>
+                </button>
             </div>
         </div>
         
@@ -855,7 +1000,7 @@
             });
         });
         
-        // टॅब बटन फंक्शन
+        // टॅब बटन फंक्शन - फिक्स्ड
         const boyTab = document.getElementById('boyTab');
         const girlTab = document.getElementById('girlTab');
         
@@ -889,6 +1034,12 @@
             });
         });
         
+        // शेअर app बटन क्लिक इव्हेंट
+        const shareAppBtn = document.querySelector('.share-app-btn');
+        shareAppBtn.addEventListener('click', function() {
+            alert('App शेअर केले जाईल!');
+        });
+        
         // बॉटम नेव्हिगेशन क्लिक इव्हेंट
         document.querySelectorAll('.nav-item').forEach(item => {
             item.addEventListener('click', function() {
@@ -913,7 +1064,7 @@
             // मोबाईल स्क्रीनसाठी ऑटो समायोजन
             if (window.innerWidth <= 480) {
                 mobileApp.style.height = '100vh';
-                content.style.paddingBottom = '70px';
+                content.style.paddingBottom = '100px'; /* बॉटम स्पेस वाढविले */
                 
                 // सर्व 4 आयकॉन एका रेषेत राहतील याची खात्री
                 const menuGrids = document.querySelectorAll('.menu-grid');
@@ -939,7 +1090,7 @@
         
         // टच डिव्हाईससाठी हॉवर इफेक्ट समायोजन
         if ('ontouchstart' in window) {
-            document.querySelectorAll('.menu-item-app, .nav-item, .menu-item').forEach(element => {
+            document.querySelectorAll('.menu-item-app, .nav-item, .menu-item, .share-app-btn').forEach(element => {
                 element.addEventListener('touchstart', function() {
                     this.classList.add('touch-active');
                 });
