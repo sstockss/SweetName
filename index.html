@@ -244,12 +244,15 @@
             width: 100%;
             box-sizing: border-box;
             justify-content: flex-start; /* आयकॉन वरच्या बाजूला */
+			text-decoration: none;
+			color: inherit;
         }
         
         .menu-item-app:hover {
             background-color: #eef2ff;
             transform: translateY(-5px);
             box-shadow: 0 8px 20px rgba(106, 17, 203, 0.15);
+			text-decoration: none;
         }
         
         /* निळे गोल आयकॉन - स्थिर स्थितीत */
@@ -741,14 +744,14 @@
                     <a class="view-all-btn" id="viewTransfers">View All</a>
                 </div>
                 <div class="menu-grid">
-                    <div class="menu-item-app">
+                    <a href="affectionate-communication.html" class="menu-item-app">
                         <div class="menu-icon">
                             <i class="far fa-comments"></i>
                         </div>
                         <div class="menu-text-container">
                             <span>वात्सल्य संवाद</span>
                         </div>
-                    </div>
+                    </a>
                     <div class="menu-item-app">
                         <div class="menu-icon">
                             <i class="fas fa-baby-carriage"></i>
@@ -964,141 +967,141 @@
     </div>
 
     <script>
-        // हॅमबर्गर मेनू फंक्शन
-        const hamburgerBtn = document.getElementById('hamburgerBtn');
-        const sideMenu = document.getElementById('sideMenu');
-        const menuOverlay = document.getElementById('menuOverlay');
-        const closeMenuBtn = document.getElementById('closeMenuBtn');
-        
-        hamburgerBtn.addEventListener('click', function() {
-            sideMenu.classList.add('active');
-            menuOverlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-        
-        closeMenuBtn.addEventListener('click', function() {
+// नवीन JavaScript - अलर्टशिवाय
+document.addEventListener('DOMContentLoaded', function() {
+    // हॅमबर्गर मेनू फंक्शन
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const sideMenu = document.getElementById('sideMenu');
+    const menuOverlay = document.getElementById('menuOverlay');
+    const closeMenuBtn = document.getElementById('closeMenuBtn');
+    
+    hamburgerBtn.addEventListener('click', function() {
+        sideMenu.classList.add('active');
+        menuOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+    
+    closeMenuBtn.addEventListener('click', function() {
+        sideMenu.classList.remove('active');
+        menuOverlay.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    });
+    
+    menuOverlay.addEventListener('click', function() {
+        sideMenu.classList.remove('active');
+        menuOverlay.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    });
+    
+    // साइड मेनू आयटम्स
+    const menuItems = document.querySelectorAll('.menu-item');
+    menuItems.forEach(item => {
+        item.addEventListener('click', function() {
+            const itemText = this.querySelector('span').textContent;
+            alert(`${itemText} पेज दाखवला जाईल`);
             sideMenu.classList.remove('active');
             menuOverlay.classList.remove('active');
             document.body.style.overflow = 'auto';
         });
-        
-        menuOverlay.addEventListener('click', function() {
-            sideMenu.classList.remove('active');
-            menuOverlay.classList.remove('active');
-            document.body.style.overflow = 'auto';
+    });
+    
+    // टॅब बटन फंक्शन
+    const boyTab = document.getElementById('boyTab');
+    const girlTab = document.getElementById('girlTab');
+    
+    boyTab.addEventListener('click', function() {
+        boyTab.classList.add('active');
+        girlTab.classList.remove('active');
+        console.log("Baby Boy टॅब निवडला");
+    });
+    
+    girlTab.addEventListener('click', function() {
+        girlTab.classList.add('active');
+        boyTab.classList.remove('active');
+        console.log("Baby Girl टॅब निवडला");
+    });
+    
+    // View All लिंक्स
+    const viewButtons = document.querySelectorAll('.view-all-btn');
+    viewButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const sectionTitle = this.closest('.section-title').querySelector('em').textContent;
+            alert(`${sectionTitle} सेक्शनचे सर्व आयटम दाखवले जातील`);
         });
-        
-        // साइड मेनू आयटम्स
-        const menuItems = document.querySelectorAll('.menu-item');
-        menuItems.forEach(item => {
-            item.addEventListener('click', function() {
-                const itemText = this.querySelector('span').textContent;
-                alert(`${itemText} पेज दाखवला जाईल`);
-                sideMenu.classList.remove('active');
-                menuOverlay.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            });
+    });
+    
+    // मेन्यू आयटम क्लिक इव्हेंट - बदललेले (अलर्ट नाही)
+    document.querySelectorAll('.menu-item-app').forEach(item => {
+        item.addEventListener('click', function() {
+            const itemText = this.querySelector('span').textContent;
+            // अलर्ट काढून टाकले - फक्त कन्सोल लॉग
+            console.log(`"${itemText}" सेवा निवडली!`);
         });
-        
-        // टॅब बटन फंक्शन - फिक्स्ड
-        const boyTab = document.getElementById('boyTab');
-        const girlTab = document.getElementById('girlTab');
-        
-        boyTab.addEventListener('click', function() {
-            boyTab.classList.add('active');
-            girlTab.classList.remove('active');
-            console.log("Baby Boy टॅब निवडला");
-        });
-        
-        girlTab.addEventListener('click', function() {
-            girlTab.classList.add('active');
-            boyTab.classList.remove('active');
-            console.log("Baby Girl टॅब निवडला");
-        });
-        
-        // View All लिंक्स
-        const viewButtons = document.querySelectorAll('.view-all-btn');
-        viewButtons.forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                const sectionTitle = this.closest('.section-title').querySelector('em').textContent;
-                alert(`${sectionTitle} सेक्शनचे सर्व आयटम दाखवले जातील`);
-            });
-        });
-        
-        // मेन्यू आयटम क्लिक इव्हेंट
-        document.querySelectorAll('.menu-item-app').forEach(item => {
-            item.addEventListener('click', function() {
-                const itemText = this.querySelector('span').textContent;
-                alert(`"${itemText}" सेवा निवडली!`);
-            });
-        });
-        
-        // शेअर app बटन क्लिक इव्हेंट
-        const shareAppBtn = document.querySelector('.share-app-btn');
+    });
+    
+    // शेअर app बटन क्लिक इव्हेंट
+    const shareAppBtn = document.querySelector('.share-app-btn');
+    if (shareAppBtn) {
         shareAppBtn.addEventListener('click', function() {
             alert('App शेअर केले जाईल!');
         });
-        
-        // बॉटम नेव्हिगेशन क्लिक इव्हेंट
-        document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', function() {
-                document.querySelectorAll('.nav-item').forEach(nav => {
-                    nav.classList.remove('active');
-                });
-                this.classList.add('active');
-                
-                const navText = this.querySelector('.nav-text').textContent;
-                console.log(`नेव्हिगेट करा: ${navText}`);
+    }
+    
+    // बॉटम नेव्हिगेशन क्लिक इव्हेंट
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', function() {
+            document.querySelectorAll('.nav-item').forEach(nav => {
+                nav.classList.remove('active');
             });
+            this.classList.add('active');
+            
+            const navText = this.querySelector('.nav-text').textContent;
+            console.log(`नेव्हिगेट करा: ${navText}`);
         });
+    });
+    
+    // स्क्रीन फुल स्क्रीन फिट करणे
+    function adjustForMobile() {
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
         
-        // स्क्रीन फुल स्क्रीन फिट करणे
-        function adjustForMobile() {
-            const vh = window.innerHeight * 0.01;
-            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        const mobileApp = document.querySelector('.mobile-app');
+        const content = document.querySelector('.content');
+        
+        if (window.innerWidth <= 480) {
+            mobileApp.style.height = '100vh';
+            content.style.paddingBottom = '100px';
             
-            const mobileApp = document.querySelector('.mobile-app');
-            const content = document.querySelector('.content');
-            
-            // मोबाईल स्क्रीनसाठी ऑटो समायोजन
-            if (window.innerWidth <= 480) {
-                mobileApp.style.height = '100vh';
-                content.style.paddingBottom = '100px'; /* बॉटम स्पेस वाढविले */
-                
-                // सर्व 4 आयकॉन एका रेषेत राहतील याची खात्री
-                const menuGrids = document.querySelectorAll('.menu-grid');
-                menuGrids.forEach(grid => {
-                    grid.style.gridTemplateColumns = 'repeat(4, 1fr)';
-                });
-            }
-            
-            // iOS साठी विशेष समायोजन
-            if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
-                document.body.style.height = 'calc(var(--vh, 1vh) * 100)';
-                mobileApp.style.height = 'calc(var(--vh, 1vh) * 100)';
-            }
+            const menuGrids = document.querySelectorAll('.menu-grid');
+            menuGrids.forEach(grid => {
+                grid.style.gridTemplateColumns = 'repeat(4, 1fr)';
+            });
         }
         
-        // पहिल्यांदा आणि विंडो रिसाइझवर लेआउट समायोजित करा
-        window.addEventListener('load', adjustForMobile);
-        window.addEventListener('resize', adjustForMobile);
-        window.addEventListener('orientationchange', adjustForMobile);
-        
-        // सुरुवातीला adjust करा
-        adjustForMobile();
-        
-        // टच डिव्हाईससाठी हॉवर इफेक्ट समायोजन
-        if ('ontouchstart' in window) {
-            document.querySelectorAll('.menu-item-app, .nav-item, .menu-item, .share-app-btn').forEach(element => {
-                element.addEventListener('touchstart', function() {
-                    this.classList.add('touch-active');
-                });
-                
-                element.addEventListener('touchend', function() {
-                    this.classList.remove('touch-active');
-                });
+        if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
+            document.body.style.height = 'calc(var(--vh, 1vh) * 100)';
+            mobileApp.style.height = 'calc(var(--vh, 1vh) * 100)';
+        }
+    }
+    
+    window.addEventListener('load', adjustForMobile);
+    window.addEventListener('resize', adjustForMobile);
+    window.addEventListener('orientationchange', adjustForMobile);
+    adjustForMobile();
+    
+    if ('ontouchstart' in window) {
+        document.querySelectorAll('.menu-item-app, .nav-item, .menu-item, .share-app-btn').forEach(element => {
+            element.addEventListener('touchstart', function() {
+                this.classList.add('touch-active');
             });
+            
+            element.addEventListener('touchend', function() {
+                this.classList.remove('touch-active');
+            });
+        });
+    }
+});
         }
     </script>
 </body>
