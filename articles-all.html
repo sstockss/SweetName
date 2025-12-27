@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>ममतेची सावली - सर्व आर्टिकल्स | SweetNames</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .mobile-app {
+            width: 100%;
+            height: 100vh;
+            max-width: 100%;
+            background-color: #fff;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* शीर्ष भाग - इमेज */
+        .header-image {
+            width: 100%;
+            height: 35vh;
+            min-height: 35vh;
+            position: relative;
+            overflow: hidden;
+            background-image: url('Image/sweet-baby.webp');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            flex-shrink: 0;
+        }
+        
+        /* टॉप मेनू आयकॉन */
+        .top-menu-icon {
+            position: absolute;
+            top: 25px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #6a11cb;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 100;
+            font-size: 22px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .top-menu-icon:hover {
+            transform: scale(1.1);
+            background: white;
+        }
+        
+        /* साइड मेनू */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: -320px;
+            width: 300px;
+            height: 100%;
+            background-color: white;
+            z-index: 300;
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
+            transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            padding-top: 20px;
+            overflow-y: auto;
+        }
+        
+        .side-menu.active {
+            right: 0;
+        }
+        
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 250;
+            display: none;
+            backdrop-filter: blur(3px);
+        }
+        
+        .menu-overlay.active {
+            display: block;
+        }
+        
+        .menu-header {
+            padding: 25px;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            position: relative;
+        }
+        
+        /* टॉप बंद बटन */
+        .menu-close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            padding: 5px;
+            line-height: 1;
+            transition: transform 0.3s;
+        }
+        
+        .menu-close-btn:hover {
+            transform: scale(1.2);
+        }
+        
+        .menu-items {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .menu-item {
+            padding: 20px 30px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .menu-item:hover {
+            background-color: #f8f9ff;
+            padding-left: 35px;
+        }
+        
+        .menu-item i {
+            color: #6a11cb;
+            width: 24px;
+            font-size: 20px;
+        }
+        
+        .menu-item span {
+            font-size: 16px;
+            font-weight: 600;
+            color: #444;
+        }
+        
+        /* मेन्यू सेक्शन */
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding-bottom: 100px;
+            display: flex;
+            flex-direction: column;
+            padding: 0 15px;
+        }
+        
+        /* पेज हेडर */
+        .page-header {
+            padding: 20px 0;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .page-header h1 {
+            font-size: 24px;
+            color: #2d3748;
+            margin-bottom: 8px;
+            font-weight: 800;
+        }
+        
+        .page-header p {
+            font-size: 14px;
+            color: #718096;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+        
+        /* कॅटेगरी ग्रिड - 7 कॅटेगरीज */
+        .categories-section {
+            margin-bottom: 25px;
+            padding: 0 5px;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 18px;
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .section-title em {
+            font-style: italic;
+            color: #2d3748;
+        }
+        
+        .back-btn {
+            font-size: 14px;
+            color: #6a11cb;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            background: rgba(106, 17, 203, 0.1);
+            padding: 6px 12px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .back-btn:hover {
+            background: rgba(106, 17, 203, 0.2);
+            text-decoration: none;
+        }
+        
+        /* 7 कॅटेगरीज ग्रिड */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            width: 100%;
+        }
+        
+        .category-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 25px 15px;
+            border-radius: 18px;
+            background-color: #f8f9fa;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            min-height: 180px;
+            width: 100%;
+            box-sizing: border-box;
+            justify-content: center;
+            text-decoration: none;
+            color: inherit;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .category-card:hover {
+            background-color: #eef2ff;
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(106, 17, 203, 0.18);
+            border-color: rgba(106, 17, 203, 0.3);
+        }
+        
+        /* कॅटेगरी आयकॉन्स */
+        .category-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+            color: white;
+            font-size: 32px;
+            box-shadow: 0 8px 20px rgba(106, 17, 203, 0.3);
+            flex-shrink: 0;
+        }
+        
+        .category-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .category-card h3 {
+            font-size: 16px;
+            font-weight: 800;
+            color: #2d3748;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+        
+        .category-card p {
+            font-size: 12px;
+            color: #718096;
+            line-height: 1.4;
+            margin-bottom: 10px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .article-count {
+            display: inline-block;
+            background: rgba(106, 17, 203, 0.1);
+            color: #6a11cb;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 15px;
+            margin-top: 5px;
+        }
+        
+        /* आर्टिकल्स ग्रिड */
+        .articles-section {
+            margin-bottom: 25px;
+            padding: 0 5px;
+        }
+        
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            width: 100%;
+        }
+        
+        .article-card {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            padding: 20px;
+            border-radius: 16px;
+            background-color: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            min-height: 160px;
+            width: 100%;
+            box-sizing: border-box;
+            text-decoration: none;
+            color: inherit;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(106, 17, 203, 0.15);
+            border-color: rgba(106, 17, 203, 0.2);
+        }
+        
+        .article-category {
+            display: inline-block;
+            background: rgba(106, 17, 203, 0.1);
+            color: #6a11cb;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            align-self: flex-start;
+        }
+        
+        .article-card h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        
+        .article-card p {
+            font-size: 12px;
+            color: #718096;
+            line-height: 1.4;
+            margin-bottom: 12px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 10px;
+            color: #a0aec0;
+            margin-top: auto;
+        }
+        
+        .article-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        /* डिस्क्रिप्शन सेक्शन */
+        .description-section {
+            margin-bottom: 25px;
+            padding: 15px 20px;
+            border-radius: 14px;
+            background-color: #f0f7ff;
+            border: 1px solid #2575fc;
+        }
+        
+        .description-text {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #555;
+            text-align: center;
+        }
+        
+        /* शेअर धिस app बटन */
+        .share-app-section {
+            margin-bottom: 35px;
+            padding: 0 5px;
+            text-align: center;
+            animation: fadeInUp 0.7s ease-out forwards;
+            opacity: 0;
+            animation-delay: 0.7s;
+        }
+        
+        .share-app-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 16px 30px;
+            border-radius: 50px;
+            background-color: transparent;
+            border: 2px solid rgba(0, 0, 0, 0.25);
+            color: #333;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        
+        .share-app-btn:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+            border-color: rgba(0, 0, 0, 0.35);
+            transform: translateY(-3px);
+        }
+        
+        .share-app-btn i {
+            font-size: 20px;
+            color: #6a11cb;
+        }
+        
+        /* बॉटम नेव्हिगेशन */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #fff;
+            border-top: 1px solid #e2e8f0;
+            padding: 12px 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 100;
+            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            cursor: pointer;
+            color: #888;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+        
+        .nav-item.active {
+            color: #6a11cb;
+        }
+        
+        .nav-item:hover {
+            color: #6a11cb;
+        }
+        
+        .nav-icon {
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+        
+        .nav-text {
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        /* स्क्रोलबार स्टाइलिंग */
+        .content::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        .content::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, #6a11cb, #2575fc);
+            border-radius: 10px;
+        }
+        
+        .side-menu::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .side-menu::-webkit-scrollbar-track {
+            background: #f8f9fa;
+        }
+        
+        .side-menu::-webkit-scrollbar-thumb {
+            background: #6a11cb;
+            border-radius: 10px;
+        }
+        
+        /* रेस्पॉन्सिव्हनेस - मोबाईल फिट */
+        @media (max-width: 768px) {
+            .categories-grid,
+            .articles-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            
+            .category-card {
+                padding: 20px 12px;
+                min-height: 170px;
+            }
+            
+            .category-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 28px;
+                margin-bottom: 12px;
+            }
+            
+            .category-card h3 {
+                font-size: 15px;
+            }
+            
+            .article-card {
+                padding: 16px;
+                min-height: 150px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .mobile-app {
+                height: 100vh;
+                max-width: 100vw;
+            }
+            
+            .header-image {
+                height: 30vh;
+                min-height: 30vh;
+            }
+            
+            .page-header h1 {
+                font-size: 20px;
+            }
+            
+            .page-header p {
+                font-size: 13px;
+            }
+            
+            .categories-grid,
+            .articles-grid {
+                gap: 10px;
+            }
+            
+            .category-card {
+                padding: 18px 10px;
+                min-height: 160px;
+            }
+            
+            .category-icon {
+                width: 65px;
+                height: 65px;
+                font-size: 26px;
+                margin-bottom: 10px;
+            }
+            
+            .category-card h3 {
+                font-size: 14px;
+            }
+            
+            .category-card p {
+                font-size: 11px;
+            }
+            
+            .article-card {
+                padding: 14px;
+                min-height: 140px;
+            }
+            
+            .article-card h4 {
+                font-size: 13px;
+            }
+            
+            .article-card p {
+                font-size: 11px;
+            }
+            
+            .content {
+                padding: 0 10px;
+                padding-bottom: 100px;
+            }
+            
+            .share-app-btn {
+                padding: 14px 25px;
+                font-size: 15px;
+                max-width: 280px;
+            }
+        }
+        
+        @media (max-width: 380px) {
+            .categories-grid,
+            .articles-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .category-card {
+                min-height: 150px;
+                padding: 20px 15px;
+            }
+            
+            .category-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+            }
+            
+            .article-card {
+                min-height: 130px;
+            }
+            
+            .share-app-btn {
+                padding: 12px 20px;
+                font-size: 14px;
+                max-width: 250px;
+            }
+        }
+        
+        @media (max-width: 320px) {
+            .page-header h1 {
+                font-size: 18px;
+            }
+            
+            .page-header p {
+                font-size: 12px;
+            }
+            
+            .category-card h3 {
+                font-size: 13px;
+            }
+            
+            .share-app-btn {
+                padding: 10px 18px;
+                font-size: 13px;
+                max-width: 230px;
+            }
+        }
+        
+        /* अॅनिमेशन */
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(25px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+        
+        .page-header, .categories-section, .articles-section, .description-section {
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .page-header { animation-delay: 0.1s; }
+        .categories-section { animation-delay: 0.2s; }
+        .articles-section { animation-delay: 0.3s; }
+        .description-section { animation-delay: 0.4s; }
+        
+        /* मोबाईल डिव्हाईससाठी विशेष */
+        @supports (-webkit-touch-callout: none) {
+            body {
+                height: -webkit-fill-available;
+            }
+            
+            .mobile-app {
+                height: -webkit-fill-available;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-app">
+        <!-- शीर्ष भाग - फिक्स्ड इमेज -->
+        <div class="header-image">
+            <!-- टॉप मेनू बटन -->
+            <button class="top-menu-icon" id="hamburgerBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- साइड मेनू -->
+        <div class="menu-overlay" id="menuOverlay"></div>
+        <div class="side-menu" id="sideMenu">
+            <div class="menu-header">
+                <i class="fas fa-heart"></i> SweetName
+                <button class="menu-close-btn" id="closeMenuBtn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <ul class="menu-items">
+                <li class="menu-item" id="homeMenuItem">
+                    <i class="fas fa-home"></i>
+                    <span>होम</span>
+                </li>
+                <li class="menu-item" id="aboutMenuItem">
+                    <i class="fas fa-info-circle"></i>
+                    <span>आमच्याबद्दल</span>
+                </li>
+                <li class="menu-item" id="blogMenuItem">
+                    <i class="fas fa-newspaper"></i>
+                    <span>ब्लॉग</span>
+                </li>
+                <li class="menu-item" id="disclaimerMenuItem">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>डिस्क्लेमर</span>
+                </li>
+                <li class="menu-item" id="privacyMenuItem">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>प्रायव्हेसी पॉलिसी</span>
+                </li>
+                <li class="menu-item" id="termsMenuItem">
+                    <i class="fas fa-file-contract"></i>
+                    <span>टर्म्स ऑफ सर्व्हिस</span>
+                </li>
+                <li class="menu-item" id="contactMenuItem">
+                    <i class="fas fa-envelope"></i>
+                    <span>संपर्क</span>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- मुख्य सामग्री -->
+        <div class="content">
+            <!-- पेज हेडर -->
+            <div class="page-header">
+                <h1>ममतेची सावली</h1>
+                <p>गर्भसंस्कारापासून ते बालपणाच्या संवादापर्यंत, मातृत्वाच्या सर्व पैलूंवर मार्गदर्शन करणारे लेख</p>
+            </div>
+            
+            <!-- कॅटेगरीज सेक्शन -->
+            <div class="categories-section">
+                <div class="section-title">
+                    <em>Categories</em>
+                    <a href="index.html" class="back-btn">
+                        <i class="fas fa-arrow-left"></i> मागे जा
+                    </a>
+                </div>
+                <div class="categories-grid">
+                    <!-- कॅटेगरी 1 -->
+                    <a href="affectionate-communication.html" class="category-card">
+                        <div class="category-icon">
+                            <i class="far fa-comments"></i>
+                        </div>
+                        <div class="category-content">
+                            <h3>वात्सल्य संवाद</h3>
+                            <p>मुलांशी प्रभावी संवाद साधण्याचे मार्ग आणि तंत्रे</p>
+                            <span class="article-count">9 आर्टिकल्स</span>
+                        </div>
+                    </a>
+                    
+                    <!-- कॅटेगरी 2 -->
+                    <a href="prenatal-education.html" class="category-card">
+                        <div class="category-icon">
+                            <i class="fas fa-baby-carriage"></i>
+                        </div>
+                        <div class="category-content">
+                            <h3>गर्भसंस्कार</h3>
+                            <p>गर्भावस्थेत बाळाच्या विकासासाठी उपयुक्त उपाय</p>
+                            <span class="article-count">7 आर्टिकल्स</span>
+                        </div>
+                    </a>
+                    
+                    <!-- कॅटेगरी 3 -->
+                    <a href="moral-stories.html" class="category-card">
+                        <div class="category-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="category-content">
+                            <h3>बोधकथा</h3>
+                            <p>मुलांच्या नैतिक विकासासाठी शिक्षाप्रद कथा</p>
+                            <span class="article-count">11 आर्टिकल्स</span>
+                        </div>
+                    </a>
+                    
+                    <!-- कॅटेगरी 4 -->
+                    <a href="mother-health.html" class="category-card">
+                        <div class="category-icon">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <div class="category-content">
+                            <h3>आईचे आरोग्य</h3>
+                            <p>मातृत्वात आरोग्य राखण्याचे टिप्स आणि मार्गदर्शन</p>
+                            <span class="article-count">6 आर्टिकल्स</span>
+                        </div>
+                    </a>
+                    
+                    <!-- कॅटेगरी 5 -->
+                    <a href="child-nutrition.html" class="category-card">
+                        <div class="category-icon">
+                            <i class="fas fa-apple-alt"></i>
+                        </div>
+                        <div class="category-content">
+                            <h3>शौर्यगाथा</h3>
+                            <p>वेगवेगळ्या वयोगटातील मुलांचे संतुलित आहार</p>
+                            <span class="article-count">14 आर्टिकल्स</span>
+                        </div>
+                    </a>
+                    
+                    <!-- कॅटेगरी 6 -->
+                    <a href="parenting-tips.html" class="category-card">
+                        <div class="category-icon">
+                            <i class="fas fa-hands-helping"></i>
+                        </div>
+                        <div class="category-content">
+                            <h3>बाळाची काळजी</h3>
+                            <p>आधुनिक काळातील पालकत्वाच्या आव्हानांवर मार्गदर्शन</p>
+                            <span class="article-count">9 आर्टिकल्स</span>
+                        </div>
+                    </a>
+                    
+                    <!-- कॅटेगरी 7 -->
+                    <a href="emotional-bonding.html" class="category-card">
+                        <div class="category-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="category-content">
+                            <h3>संस्कारांचा वारसा</h3>
+                            <p>मुलांशी भावनिक जोड निर्माण करण्याचे उपाय</p>
+                            <span class="article-count">7 आर्टिकल्स</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- लोकप्रिय आर्टिकल्स -->
+            <div class="articles-section">
+                <div class="section-title">
+                    <em>लोकप्रिय आर्टिकल्स</em>
+                    <span class="view-all-btn">सर्व पहा</span>
+                </div>
+                <div class="articles-grid">
+                    <!-- आर्टिकल 1 -->
+                    <a href="#" class="article-card">
+                        <span class="article-category">वात्सल्य संवाद</span>
+                        <h4>शासन नाही, तर ही गोष्ट मुलांमध्ये नैतिकता रुजवते, जी तुम्हाला माहिती असायला हवी.</h4>
+                        <p>मुलांमध्ये नैतिक मूल्ये रुजवण्यासाठी शिक्षेची भीती नको, तर त्यांच्या मनावर सकारात्मक परिणाम करणारी नेमकी गोष्ट करा.</p>
+                        <div class="article-meta">
+                        </div>
+                    </a>
+                    
+                    <!-- आर्टिकल 2 -->
+                    <a href="#" class="article-card">
+                        <span class="article-category">गर्भसंस्कार</span>
+                        <h4>अभिमन्यूची कथा फक्त दंतकथा नाही! गर्भातील बाळ तुमच्या विचारांवर प्रक्रिया कशी पूर्ण करतं?</h4>
+                        <p>अभिमन्यूची कथा केवळ दंतकथा नाही! गर्भातील बाळ आईच्या विचारांवर कशी प्रक्रिया करते आणि बाह्य जगाकडून कसे शिकते? जाणून घ्या यामागील रंजक विज्ञान.</p>
+                        <div class="article-meta">
+                        </div>
+                    </a>
+                    
+                    <!-- आर्टिकल 3 -->
+                    <a href="#" class="article-card">
+                        <span class="article-category">बोधकथा</span>
+                        <h4>एकलव्याची अचाट एकाग्रता ज्याने नियतीलाही झुकवले.</h4>
+                        <p>एकलव्याची ही कथा केवळ एकाग्रतेचे प्रतीक नाही, तर परिश्रमातून अशक्य गोष्ट शक्य करण्याची प्रेरणा आहे.</p>
+                        <div class="article-meta">
+                        </div>
+                    </a>
+                    
+                    <!-- आर्टिकल 4 -->
+                    <a href="#" class="article-card">
+                        <span class="article-category">शौर्यगाथा</span>
+                        <h4>ऑपरेशन सिंदूर: कर्नल सोफिया कुरेशी, रक्तरंजित भूमीवरील लष्करी जिद्द.</h4>
+                        <p>जिथे कर्नल सोफिया कुरेशी यांनी आपल्या अतुलनीय लष्करी शौर्याने आणि अढळ ध्येयनिष्ठेने रक्तरंजित भूमीवर विजयाचा तिरंगा फडकवला.</p>
+                        <div class="article-meta">
+                        </div>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- डिस्क्रिप्शन सेक्शन -->
+            <div class="description-section">
+                <div class="description-text">
+                    <em>"ममतेची सावली" मध्ये तुम्हाला मातृत्व, बालसंगोपन आणि पालकत्व या विषयांवर संपूर्ण मार्गदर्शन मिळेल. प्रत्येक आर्टिकल तज्ज्ञांच्या मार्गदर्शनाखाली तयार केलेले आहे.</em>
+                </div>
+            </div>
+            
+            <!-- शेअर धिस app बटन -->
+            <div class="share-app-section">
+                <button class="share-app-btn">
+                    <i class="fas fa-share-alt"></i>
+                    <span>Invite your friends to join</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- बॉटम नेव्हिगेशन मेन्यू -->
+        <div class="bottom-nav">
+            <div class="nav-item">
+                <div class="nav-icon">
+                    <i class="fas fa-home"></i>
+                </div>
+                <div class="nav-text">Home</div>
+            </div>
+            <div class="nav-item active">
+                <div class="nav-icon">
+                    <i class="fas fa-th-large"></i>
+                </div>
+                <div class="nav-text">Categories</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="nav-text">Search</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="nav-text">Favorites</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon">
+                    <i class="fas fa-share-alt"></i>
+                </div>
+                <div class="nav-text">Invite</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // हॅमबर्गर मेनू फंक्शन
+            const hamburgerBtn = document.getElementById('hamburgerBtn');
+            const sideMenu = document.getElementById('sideMenu');
+            const menuOverlay = document.getElementById('menuOverlay');
+            const closeMenuBtn = document.getElementById('closeMenuBtn');
+            
+            hamburgerBtn.addEventListener('click', function() {
+                sideMenu.classList.add('active');
+                menuOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+            
+            closeMenuBtn.addEventListener('click', function() {
+                sideMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+            
+            menuOverlay.addEventListener('click', function() {
+                sideMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+            
+            // साइड मेनू आयटम्स
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const itemText = this.querySelector('span').textContent;
+                    alert(`${itemText} पेज दाखवला जाईल`);
+                    sideMenu.classList.remove('active');
+                    menuOverlay.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                });
+            });
+            
+            // कॅटेगरी कार्ड क्लिक इव्हेंट
+            document.querySelectorAll('.category-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const categoryName = this.querySelector('h3').textContent;
+                    console.log(`"${categoryName}" कॅटेगरी निवडली!`);
+                });
+            });
+            
+            // आर्टिकल कार्ड क्लिक इव्हेंट
+            document.querySelectorAll('.article-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const articleTitle = this.querySelector('h4').textContent;
+                    console.log(`"${articleTitle}" आर्टिकल वाचले जाईल!`);
+                });
+            });
+            
+            // शेअर app बटन क्लिक इव्हेंट
+            const shareAppBtn = document.querySelector('.share-app-btn');
+            if (shareAppBtn) {
+                shareAppBtn.addEventListener('click', function() {
+                    console.log('App शेअर केले जाईल!');
+                });
+            }
+            
+            // बॉटम नेव्हिगेशन क्लिक इव्हेंट
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    document.querySelectorAll('.nav-item').forEach(nav => {
+                        nav.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    
+                    const navText = this.querySelector('.nav-text').textContent;
+                    console.log(`नेव्हिगेट करा: ${navText}`);
+                    
+                    // होम बटनवर क्लिक केल्यास मुख्यपृष्ठावर जा
+                    if (navText === 'Home') {
+                        window.location.href = 'index.html';
+                    }
+                });
+            });
+            
+            // स्क्रीन फुल स्क्रीन फिट करणे
+            function adjustForMobile() {
+                const vh = window.innerHeight * 0.01;
+                document.documentElement.style.setProperty('--vh', `${vh}px`);
+                
+                const mobileApp = document.querySelector('.mobile-app');
+                const content = document.querySelector('.content');
+                
+                if (window.innerWidth <= 480) {
+                    mobileApp.style.height = '100vh';
+                    content.style.paddingBottom = '100px';
+                    
+                    const categoriesGrid = document.querySelector('.categories-grid');
+                    const articlesGrid = document.querySelector('.articles-grid');
+                    
+                    if (window.innerWidth <= 380) {
+                        if (categoriesGrid) categoriesGrid.style.gridTemplateColumns = '1fr';
+                        if (articlesGrid) articlesGrid.style.gridTemplateColumns = '1fr';
+                    }
+                }
+                
+                if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
+                    document.body.style.height = 'calc(var(--vh, 1vh) * 100)';
+                    mobileApp.style.height = 'calc(var(--vh, 1vh) * 100)';
+                }
+            }
+            
+            window.addEventListener('load', adjustForMobile);
+            window.addEventListener('resize', adjustForMobile);
+            window.addEventListener('orientationchange', adjustForMobile);
+            adjustForMobile();
+            
+            // स्पर्श आणि होवर इफेक्ट्स
+            if ('ontouchstart' in window) {
+                document.querySelectorAll('.category-card, .article-card, .nav-item, .menu-item, .share-app-btn').forEach(element => {
+                    element.addEventListener('touchstart', function() {
+                        this.classList.add('touch-active');
+                    });
+                    
+                    element.addEventListener('touchend', function() {
+                        this.classList.remove('touch-active');
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
