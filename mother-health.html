@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>SweetNames - आईचे आरोग्य</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .mobile-app {
+            width: 100%;
+            height: 100vh;
+            max-width: 100%;
+            background-color: #fff;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* शीर्ष भाग - इमेज */
+        .header-image {
+            width: 100%;
+            height: 20vh;
+            min-height: 20vh;
+            position: relative;
+            overflow: hidden;
+            background-image: linear-gradient(rgba(106, 17, 203, 0.8), rgba(37, 117, 252, 0.8)), url('https://images.unsplash.com/photo-1516627145497-ae695c17c8f0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .page-title {
+            color: white;
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .page-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+            max-width: 90%;
+            line-height: 1.4;
+        }
+        
+        /* टॉप मेनू आयकॉन */
+        .top-menu-icon {
+            position: absolute;
+            top: 25px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #6a11cb;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 100;
+            font-size: 22px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .top-menu-icon:hover {
+            transform: scale(1.1);
+            background: white;
+        }
+        
+        /* साइड मेनू */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: -320px;
+            width: 300px;
+            height: 100%;
+            background-color: white;
+            z-index: 300;
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
+            transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            padding-top: 20px;
+            overflow-y: auto;
+        }
+        
+        .side-menu.active {
+            right: 0;
+        }
+        
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 250;
+            display: none;
+            backdrop-filter: blur(3px);
+        }
+        
+        .menu-overlay.active {
+            display: block;
+        }
+        
+        .menu-header {
+            padding: 25px;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            position: relative;
+        }
+        
+        /* टॉप बंद बटन */
+        .menu-close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            padding: 5px;
+            line-height: 1;
+            transition: transform 0.3s;
+        }
+        
+        .menu-close-btn:hover {
+            transform: scale(1.2);
+        }
+        
+        .menu-items {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .menu-item {
+            padding: 20px 30px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .menu-item:hover {
+            background-color: #f8f9ff;
+            padding-left: 35px;
+        }
+        
+        .menu-item i {
+            color: #6a11cb;
+            width: 24px;
+            font-size: 20px;
+        }
+        
+        .menu-item span {
+            font-size: 16px;
+            font-weight: 600;
+            color: #444;
+        }
+        
+        /* मुख्य सामग्री */
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding-bottom: 100px; /* बॉटम स्पेस वाढविले */
+            display: flex;
+            flex-direction: column;
+            padding: 0 15px;
+        }
+        
+        /* बॅक बटन */
+        .back-section {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #6a11cb;
+            font-weight: 600;
+            font-size: 16px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background-color: rgba(106, 17, 203, 0.1);
+        }
+        
+        .back-btn i {
+            font-size: 18px;
+        }
+        
+        /* आर्टिकल्स ग्रीड */
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .article-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .article-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(106, 17, 203, 0.15);
+        }
+        
+        .article-image {
+            height: 110px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .article-number {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(106, 17, 203, 0.9);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .article-content {
+            padding: 15px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .article-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .article-desc {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.4;
+            margin-bottom: 12px;
+            flex-grow: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: #888;
+        }
+        
+        .article-read-time {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        /* डिस्क्रिप्शन सेक्शन */
+        .description-section {
+            margin-bottom: 25px;
+            padding: 18px 20px;
+            border-radius: 16px;
+            background-color: #f0f7ff;
+            border: 2px solid #2575fc;
+        }
+        
+        .description-text {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #555;
+            text-align: center;
+        }
+        
+        /* Share This App बटन सेक्शन */
+        .share-app-section {
+            margin-bottom: 35px;
+            padding: 0 5px;
+            text-align: center;
+        }
+        
+        .share-app-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 16px 30px;
+            border-radius: 50px;
+            background-color: transparent;
+            border: 2px solid rgba(0, 0, 0, 0.25);
+            color: #333;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        
+        .share-app-btn:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+            border-color: rgba(0, 0, 0, 0.35);
+            transform: translateY(-3px);
+        }
+        
+        .share-app-btn i {
+            font-size: 20px;
+            color: #6a11cb;
+        }
+        
+        /* बॉटम नेव्हिगेशन */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #fff;
+            border-top: 1px solid #e2e8f0;
+            padding: 12px 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 100;
+            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            cursor: pointer;
+            color: #888;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+        
+        .nav-item.active {
+            color: #6a11cb;
+        }
+        
+        .nav-item:hover {
+            color: #6a11cb;
+        }
+        
+        .nav-icon {
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+        
+        .nav-text {
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        /* स्क्रोलबार स्टाइलिंग */
+        .content::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        .content::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, #6a11cb, #2575fc);
+            border-radius: 10px;
+        }
+        
+        .side-menu::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .side-menu::-webkit-scrollbar-track {
+            background: #f8f9fa;
+        }
+        
+        .side-menu::-webkit-scrollbar-thumb {
+            background: #6a11cb;
+            border-radius: 10px;
+        }
+        
+        /* रेस्पॉन्सिव्हनेस - मोबाईल फिट */
+        @media (max-width: 768px) {
+            .articles-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .mobile-app {
+                height: 100vh;
+                max-width: 100vw;
+            }
+            
+            .header-image {
+                height: 25vh;
+                min-height: 25vh;
+                padding: 15px;
+            }
+            
+            .page-title {
+                font-size: 22px;
+            }
+            
+            .page-subtitle {
+                font-size: 14px;
+            }
+            
+            .articles-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            
+            .article-image {
+                height: 100px;
+            }
+            
+            .article-content {
+                padding: 12px;
+            }
+            
+            .article-title {
+                font-size: 14px;
+            }
+            
+            .article-desc {
+                font-size: 11px;
+            }
+            
+            .content {
+                padding: 0 12px;
+                padding-bottom: 100px;
+            }
+            
+            .share-app-btn {
+                padding: 14px 25px;
+                font-size: 15px;
+                max-width: 280px;
+            }
+        }
+        
+        @media (max-width: 380px) {
+            .articles-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .article-image {
+                height: 130px;
+            }
+            
+            .share-app-btn {
+                padding: 12px 20px;
+                font-size: 14px;
+                max-width: 250px;
+            }
+        }
+        
+        /* अॅनिमेशन */
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(25px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+        
+        .back-section, .articles-grid, .description-section, .share-app-section {
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .back-section { animation-delay: 0.1s; }
+        .articles-grid { animation-delay: 0.2s; }
+        .description-section { animation-delay: 0.3s; }
+        .share-app-section { animation-delay: 0.4s; }
+        
+        .article-card:nth-child(1) { animation-delay: 0.25s; }
+        .article-card:nth-child(2) { animation-delay: 0.3s; }
+        .article-card:nth-child(3) { animation-delay: 0.35s; }
+        .article-card:nth-child(4) { animation-delay: 0.4s; }
+        .article-card:nth-child(5) { animation-delay: 0.45s; }
+        .article-card:nth-child(6) { animation-delay: 0.5s; }
+        .article-card:nth-child(7) { animation-delay: 0.55s; }
+        .article-card:nth-child(8) { animation-delay: 0.6s; }
+        .article-card:nth-child(9) { animation-delay: 0.65s; }
+        
+        /* मोबाईल डिव्हाईससाठी विशेष */
+        @supports (-webkit-touch-callout: none) {
+            body {
+                height: -webkit-fill-available;
+            }
+            
+            .mobile-app {
+                height: -webkit-fill-available;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-app">
+        <!-- शीर्ष भाग - इमेज आणि शीर्षक -->
+        <div class="header-image">
+            <!-- टॉप मेनू बटन -->
+            <button class="top-menu-icon" id="hamburgerBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <div class="page-title">आईचे आरोग्य</div>
+            <div class="page-subtitle">गर्भवती महिलांसाठी आरोग्यदायी जीवनशैली कशी असावी? आहार, व्यायाम आणि मानसिक शांतता यांसाठीच्या खास टिप्स.</div>
+        </div>
+        
+        <!-- साइड मेनू -->
+        <div class="menu-overlay" id="menuOverlay"></div>
+        <div class="side-menu" id="sideMenu">
+            <div class="menu-header">
+                <i class="fas fa-heart"></i> SweetName
+                <button class="menu-close-btn" id="closeMenuBtn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <ul class="menu-items">
+                <li class="menu-item" id="homeMenuItem">
+                    <i class="fas fa-home"></i>
+                    <span>होम</span>
+                </li>
+                <li class="menu-item" id="aboutMenuItem">
+                    <i class="fas fa-info-circle"></i>
+                    <span>आमच्याबद्दल</span>
+                </li>
+                <li class="menu-item" id="blogMenuItem">
+                    <i class="fas fa-newspaper"></i>
+                    <span>ब्लॉग</span>
+                </li>
+                <li class="menu-item" id="disclaimerMenuItem">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>डिस्क्लेमर</span>
+                </li>
+                <li class="menu-item" id="privacyMenuItem">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>प्रायव्हेसी पॉलिसी</span>
+                </li>
+                <li class="menu-item" id="termsMenuItem">
+                    <i class="fas fa-file-contract"></i>
+                    <span>टर्म्स ऑफ सर्व्हिस</span>
+                </li>
+                <li class="menu-item" id="contactMenuItem">
+                    <i class="fas fa-envelope"></i>
+                    <span>संपर्क</span>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- मुख्य सामग्री -->
+        <div class="content">
+            <!-- बॅक बटन -->
+            <div class="back-section">
+                <button class="back-btn" id="backBtn">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>मागे जा</span>
+                </button>
+            </div>
+            
+            <!-- 6 आर्टिकल्स ग्रीड -->
+            <div class="articles-grid">
+                <!-- आर्टिकल 1 -->
+                <div class="article-card" id="article1">
+                    <div class="article-image" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('Image/7-golden-rules-for-a-healthy-baby.webp');">
+                        <div class="article-number">1</div>
+                    </div>
+                    <div class="article-content">
+                        <div class="article-title">सुदृढ बाळ पाहिजे तर आईने या 7 सुवर्ण नियमांचे पालन केलेच पाहिजे.</div>
+                        <div class="article-desc">बाळाच्या उत्तम वाढीसाठी आईचे आरोग्य महत्त्वाचे! जाणून घ्या ते 7 प्रभावी नियम जे तुमच्या बाळाला बनवतील सुदृढ आणि बुद्धिमान.</div>
+                        <div class="article-meta">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- आर्टिकल 2 -->
+                <div class="article-card" id="article2">
+                    <div class="article-image" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('Image/pregnancy-diet-plan-what-to-eat-and-avoid.webp');">
+                        <div class="article-number">2</div>
+                    </div>
+                    <div class="article-content">
+                        <div class="article-title">काय खावे आणि काय टाळावे? गरोदरपणातील डाएटचा असा असावा परफेक्ट प्लॅन.</div>
+                        <div class="article-desc">निरोगी बाळासाठी गरोदरपणात असावा पौष्टिक आहार. जाणून घ्या दिवसाची सुरुवात कशी करावी आणि कोणते पदार्थ कटाक्षाने टाळावेत.</div>
+                        <div class="article-meta">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- आर्टिकल 3 -->
+                <div class="article-card" id="article3">
+                    <div class="article-image" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('Image/pregnancy-cravings-and-mother-child-bond.webp');">
+                        <div class="article-number">3</div>
+                    </div>
+                    <div class="article-content">
+                        <div class="article-title">उगाच नाही म्हणत "गर्भाचे आवडी, मातेचा डोहळा", कारण इथेच असतो खरा जिव्हाळा.</div>
+                        <div class="article-desc">आईचे डोहाळे म्हणजे केवळ इच्छा नव्हे, तर बाळाची सुप्त आवड असते. हा जिव्हाळा शब्दांत मांडणारा आमचा खास लेख नक्की वाचा.</div>
+                        <div class="article-meta">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- आर्टिकल 4 -->
+                <div class="article-card" id="article4">
+                    <div class="article-image" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('Image/easy-exercises-for-fitness-during-pregnancy.webp');">
+                        <div class="article-number">4</div>
+                    </div>
+                    <div class="article-content">
+                        <div class="article-title">काही सोपे व्यायाम, जे गरोदरपणात आईला ठेवतील एकदम फिट.</div>
+                        <div class="article-desc">गरोदरपणाचा प्रवास सुखकर करण्यासाठी हे सोपे व्यायाम आहेत अत्यंत प्रभावी. शरीरातील लवचिकता वाढवण्यासाठी आणि ताण कमी करण्यासाठी आजच सुरुवात करा.</div>
+                        <div class="article-meta">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- डिस्क्रिप्शन सेक्शन -->
+            <div class="description-section">
+                <div class="description-text" id="descriptionText">
+                    <em>पआई निरोगी तर बाळ निरोगी! गर्भधारणेदरम्यान स्वतःची काळजी कशी घ्यावी? वाचा व्यायाम, आहार आणि डॉक्टरांच्या सल्ल्याबाबतची संपूर्ण माहिती.</em>
+                </div>
+            </div>
+            
+            <!-- शेअर धिस app बटन -->
+            <div class="share-app-section">
+                <button class="share-app-btn" id="shareAppBtn">
+                    <i class="fas fa-share-alt"></i>
+                    <span>Invite your friends to join</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- बॉटम नेव्हिगेशन मेन्यू -->
+        <div class="bottom-nav">
+            <div class="nav-item" id="bottomHome">
+                <div class="nav-icon">
+                    <i class="fas fa-home"></i>
+                </div>
+                <div class="nav-text">Home</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon">
+                    <i class="fas fa-th-large"></i>
+                </div>
+                <div class="nav-text">Categories</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="nav-text">Search</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="nav-text">Favorites</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon">
+                    <i class="fas fa-share-alt"></i>
+                </div>
+                <div class="nav-text">Invite</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // हॅमबर्गर मेनू फंक्शन
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const sideMenu = document.getElementById('sideMenu');
+        const menuOverlay = document.getElementById('menuOverlay');
+        const closeMenuBtn = document.getElementById('closeMenuBtn');
+        
+        hamburgerBtn.addEventListener('click', function() {
+            sideMenu.classList.add('active');
+            menuOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        closeMenuBtn.addEventListener('click', function() {
+            sideMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        menuOverlay.addEventListener('click', function() {
+            sideMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        // साइड मेनू आयटम्स
+        const menuItems = document.querySelectorAll('.menu-item');
+        menuItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const itemText = this.querySelector('span').textContent;
+                alert(`${itemText} पेज दाखवला जाईल`);
+                sideMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+		
+		// होम मेनू आयटमसाठी लिंक
+		const homeMenuItem = document.getElementById('homeMenuItem');
+		homeMenuItem.addEventListener('click', function(e) {
+			e.preventDefault();
+			window.location.href = 'index.html';
+		});
+        
+        // बॅक बटन फंक्शन
+        const backBtn = document.getElementById('backBtn');
+        backBtn.addEventListener('click', function() {
+		window.location.href = 'index.html';
+        });
+        
+        // आर्टिकल कार्ड क्लिक इव्हेंट
+        document.querySelectorAll('.article-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const articleTitle = this.querySelector('.article-title').textContent;
+                const articleNumber = this.querySelector('.article-number').textContent;
+                alert(`"${articleTitle}" हा लेख क्रमांक ${articleNumber} वाचण्यासाठी उघडला जाईल!`);
+            });
+        });
+        
+        // शेअर app बटन क्लिक इव्हेंट
+        const shareAppBtn = document.getElementById('shareAppBtn');
+        shareAppBtn.addEventListener('click', function() {
+            alert('SweetNames App तुमच्या मित्रांसोबत शेअर केले जाईल!');
+        });
+        
+        // बॉटम नेव्हिगेशन क्लिक इव्हेंट
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.nav-item').forEach(nav => {
+                    nav.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                const navText = this.querySelector('.nav-text').textContent;
+                
+                // होम नेव्हिगेशनसाठी विशेष हाताळणी
+                if (navText === 'Home' || this.id === 'bottomHome') {
+                    window.location.href = 'index.html';
+                    return; // पुढचा alert चालू देऊ नका
+                }
+                
+                alert(`नेव्हिगेट करा: ${navText}`);
+            });
+        });
+        
+        // स्क्रीन फुल स्क्रीन फिट करणे
+        function adjustForMobile() {
+            const vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+            
+            const mobileApp = document.querySelector('.mobile-app');
+            const content = document.querySelector('.content');
+            
+            // मोबाईल स्क्रीनसाठी ऑटो समायोजन
+            if (window.innerWidth <= 480) {
+                mobileApp.style.height = '100vh';
+                content.style.paddingBottom = '100px';
+            }
+            
+            // iOS साठी विशेष समायोजन
+            if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
+                document.body.style.height = 'calc(var(--vh, 1vh) * 100)';
+                mobileApp.style.height = 'calc(var(--vh, 1vh) * 100)';
+            }
+        }
+        
+        // पहिल्यांदा आणि विंडो रिसाइझवर लेआउट समायोजित करा
+        window.addEventListener('load', adjustForMobile);
+        window.addEventListener('resize', adjustForMobile);
+        window.addEventListener('orientationchange', adjustForMobile);
+        
+        // सुरुवातीला adjust करा
+        adjustForMobile();
+        
+        // टच डिव्हाईससाठी हॉवर इफेक्ट समायोजन
+        if ('ontouchstart' in window) {
+            document.querySelectorAll('.article-card, .nav-item, .menu-item, .share-app-btn, .back-btn').forEach(element => {
+                element.addEventListener('touchstart', function() {
+                    this.classList.add('touch-active');
+                });
+                
+                element.addEventListener('touchend', function() {
+                    this.classList.remove('touch-active');
+                });
+            });
+        }
+        
+        // आर्टिकल्ससाठी रँडम व्यू काउंट वाढवणे (फक्त दर्शनासाठी)
+        setInterval(() => {
+            const viewCounts = document.querySelectorAll('.article-meta span:nth-child(2)');
+            viewCounts.forEach(count => {
+                const currentViews = parseInt(count.textContent.replace(/\D/g, ''));
+                const randomIncrement = Math.floor(Math.random() * 10) + 1;
+                count.innerHTML = `<i class="far fa-eye"></i> ${(currentViews + randomIncrement).toLocaleString()}`;
+            });
+        }, 10000);
+    </script>
+</body>
+</html>
