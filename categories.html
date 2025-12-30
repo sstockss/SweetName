@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>नाम संग्रह कॅटेगरी | SweetNames</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .mobile-app {
+            width: 100%;
+            height: 100vh;
+            max-width: 100%;
+            background-color: #fff;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* शीर्ष भाग - इमेज - index.html प्रमाणे */
+        .header-image {
+            width: 100%;
+            height: 35vh;
+            min-height: 35vh;
+            position: relative;
+            overflow: hidden;
+            background-image: url('Image/sweet-baby.webp');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            flex-shrink: 0;
+        }
+        
+        /* टॉप मेनू आयकॉन */
+        .top-menu-icon {
+            position: absolute;
+            top: 25px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #6a11cb;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 100;
+            font-size: 22px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .top-menu-icon:hover {
+            transform: scale(1.1);
+            background: white;
+        }
+        
+        /* साइड मेनू */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: -320px;
+            width: 300px;
+            height: 100%;
+            background-color: white;
+            z-index: 300;
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
+            transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            padding-top: 20px;
+            overflow-y: auto;
+        }
+        
+        .side-menu.active {
+            right: 0;
+        }
+        
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 250;
+            display: none;
+            backdrop-filter: blur(3px);
+        }
+        
+        .menu-overlay.active {
+            display: block;
+        }
+        
+        .menu-header {
+            padding: 25px;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            position: relative;
+        }
+        
+        /* टॉप बंद बटन */
+        .menu-close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            padding: 5px;
+            line-height: 1;
+            transition: transform 0.3s;
+        }
+        
+        .menu-close-btn:hover {
+            transform: scale(1.2);
+        }
+        
+        .menu-items {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .menu-item {
+            padding: 20px 30px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .menu-item:hover {
+            background-color: #f8f9ff;
+            padding-left: 35px;
+        }
+        
+        .menu-item i {
+            color: #6a11cb;
+            width: 24px;
+            font-size: 20px;
+        }
+        
+        .menu-item span {
+            font-size: 16px;
+            font-weight: 600;
+            color: #444;
+        }
+        
+        /* मुख्य सामग्री */
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding-bottom: 100px;
+            display: flex;
+            flex-direction: column;
+            padding: 0 15px;
+        }
+        
+        /* पेज हेडर */
+        .page-header {
+            padding: 15px 0 10px 0;
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .page-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: #2d3748;
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        .page-title:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 5px;
+            height: 24px;
+            background: linear-gradient(to bottom, #6a11cb, #2575fc);
+            border-radius: 3px;
+        }
+        
+        .back-btn {
+            font-size: 14px;
+            color: #6a11cb;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            background: rgba(106, 17, 203, 0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .back-btn:hover {
+            background: rgba(106, 17, 203, 0.2);
+            transform: translateX(-5px);
+        }
+        
+        /* फिल्टर टॅब्स */
+        .filter-tabs {
+            margin-bottom: 20px;
+            padding: 0 5px;
+        }
+        
+        .tabs-container {
+            display: flex;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .tab-btn {
+            flex: 1;
+            padding: 10px 0;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: transparent;
+            color: #4a5568;
+        }
+        
+        .tab-btn.active {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(106, 17, 203, 0.3);
+        }
+        
+        /* कॅटेगरी ग्रिड - आकर्षक डिझाईन */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 12px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        
+        .main-category {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .main-category:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(106, 17, 203, 0.12);
+            border-color: rgba(106, 17, 203, 0.2);
+        }
+        
+        .category-header {
+            padding: 15px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #eef2ff 100%);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .category-header:hover {
+            background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+        }
+        
+        .category-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 22px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(106, 17, 203, 0.25);
+        }
+        
+        .category-info {
+            flex: 1;
+        }
+        
+        .category-name {
+            font-size: 16px;
+            font-weight: 800;
+            color: #2d3748;
+            line-height: 1.3;
+        }
+        
+        .toggle-icon {
+            font-size: 16px;
+            color: #6a11cb;
+            transition: transform 0.3s ease;
+        }
+        
+        .main-category.active .toggle-icon {
+            transform: rotate(180deg);
+        }
+        
+        /* सब-कॅटेगरीज - उंची 35% कमी केली */
+        .subcategories {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background: #f8fafc;
+        }
+        
+        .main-category.active .subcategories {
+            max-height: 250px; /* उंची कमी केली */
+        }
+        
+        .subcategory-item {
+            padding: 12px 15px; /* पेडिंग कमी केले */
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .subcategory-item:last-child {
+            border-bottom: none;
+        }
+        
+        .subcategory-item:hover {
+            background-color: #f1f5f9;
+            padding-left: 20px;
+        }
+        
+        .subcategory-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: rgba(106, 17, 203, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #6a11cb;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        
+        .subcategory-info {
+            flex: 1;
+        }
+        
+        .subcategory-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: #2d3748;
+            line-height: 1.2;
+        }
+        
+        .subcategory-desc {
+            font-size: 11px;
+            color: #718096;
+            line-height: 1.2;
+            margin-top: 2px;
+        }
+        
+        .arrow-icon {
+            color: #a0aec0;
+            font-size: 12px;
+            transition: transform 0.3s ease;
+        }
+        
+        .subcategory-item:hover .arrow-icon {
+            transform: translateX(5px);
+            color: #6a11cb;
+        }
+        
+        /* डिस्क्रिप्शन सेक्शन */
+        .description-section {
+            margin-bottom: 25px;
+            padding: 18px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #f0f7ff 0%, #e6f0ff 100%);
+            border: 1px solid #b3d1ff;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .description-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #6a11cb, #2575fc);
+        }
+        
+        .description-text {
+            font-size: 13px;
+            line-height: 1.5;
+            color: #2d3748;
+            text-align: center;
+        }
+        
+        .description-text em {
+            font-style: italic;
+            color: #6a11cb;
+            font-weight: 600;
+        }
+        
+        /* शेअर बटन */
+        .share-app-section {
+            margin-bottom: 35px;
+            padding: 0 5px;
+            text-align: center;
+            animation: fadeInUp 0.7s ease-out forwards;
+            opacity: 0;
+            animation-delay: 0.7s;
+        }
+        
+        .share-app-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 25px;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 280px;
+            margin: 0 auto;
+            text-decoration: none;
+            border: none;
+            box-shadow: 0 6px 15px rgba(106, 17, 203, 0.25);
+        }
+        
+        .share-app-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(106, 17, 203, 0.35);
+        }
+        
+        /* बॉटम नेव्हिगेशन */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #fff;
+            border-top: 1px solid #e2e8f0;
+            padding: 12px 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 100;
+            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            cursor: pointer;
+            color: #888;
+            transition: all 0.3s ease;
+            flex: 1;
+            text-decoration: none;
+        }
+        
+        .nav-item.active {
+            color: #6a11cb;
+        }
+        
+        .nav-item:hover {
+            color: #6a11cb;
+        }
+        
+        .nav-icon {
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+        
+        .nav-text {
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        /* स्क्रोलबार स्टाइलिंग */
+        .content::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        .content::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, #6a11cb, #2575fc);
+            border-radius: 10px;
+        }
+        
+        .side-menu::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .side-menu::-webkit-scrollbar-track {
+            background: #f8f9fa;
+        }
+        
+        .side-menu::-webkit-scrollbar-thumb {
+            background: #6a11cb;
+            border-radius: 10px;
+        }
+        
+        /* रेस्पॉन्सिव्हनेस - मोबाईल फिट */
+        @media (max-width: 768px) {
+            .categories-grid {
+                gap: 10px;
+            }
+            
+            .category-header {
+                padding: 14px;
+            }
+            
+            .category-icon {
+                width: 48px;
+                height: 48px;
+                font-size: 20px;
+            }
+            
+            .category-name {
+                font-size: 15px;
+            }
+            
+            .subcategory-item {
+                padding: 11px 14px;
+            }
+            
+            .main-category.active .subcategories {
+                max-height: 220px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .mobile-app {
+                height: 100vh;
+                max-width: 100vw;
+            }
+            
+            .header-image {
+                height: 30vh;
+                min-height: 30vh;
+            }
+            
+            .page-title {
+                font-size: 20px;
+            }
+            
+            .category-header {
+                padding: 12px;
+            }
+            
+            .category-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+            
+            .category-name {
+                font-size: 14px;
+            }
+            
+            .subcategory-item {
+                padding: 10px 12px;
+            }
+            
+            .subcategory-name {
+                font-size: 13px;
+            }
+            
+            .subcategory-desc {
+                font-size: 10px;
+            }
+            
+            .content {
+                padding: 0 10px;
+                padding-bottom: 100px;
+            }
+            
+            .share-app-btn {
+                padding: 12px 20px;
+                font-size: 14px;
+                max-width: 250px;
+            }
+            
+            .main-category.active .subcategories {
+                max-height: 200px;
+            }
+            
+            .tab-btn {
+                padding: 9px 0;
+                font-size: 12px;
+            }
+        }
+        
+        @media (max-width: 380px) {
+            .page-title {
+                font-size: 18px;
+            }
+            
+            .category-name {
+                font-size: 13px;
+            }
+            
+            .subcategory-name {
+                font-size: 12px;
+            }
+            
+            .share-app-btn {
+                padding: 11px 18px;
+                font-size: 13px;
+                max-width: 230px;
+            }
+            
+            .tab-btn {
+                font-size: 11px;
+                padding: 8px 0;
+            }
+            
+            .main-category.active .subcategories {
+                max-height: 180px;
+            }
+        }
+        
+        @media (max-width: 320px) {
+            .page-title {
+                font-size: 17px;
+            }
+            
+            .category-header {
+                padding: 10px;
+                gap: 10px;
+            }
+            
+            .category-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+            
+            .share-app-btn {
+                padding: 10px 16px;
+                font-size: 12px;
+                max-width: 200px;
+            }
+            
+            .main-category.active .subcategories {
+                max-height: 160px;
+            }
+        }
+        
+        /* अॅनिमेशन */
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(25px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+        
+        .page-header, .filter-tabs, .categories-grid, .description-section {
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .page-header { animation-delay: 0.1s; }
+        .filter-tabs { animation-delay: 0.2s; }
+        .categories-grid { animation-delay: 0.3s; }
+        .description-section { animation-delay: 0.4s; }
+        
+        /* मोबाईल डिव्हाईससाठी विशेष */
+        @supports (-webkit-touch-callout: none) {
+            body {
+                height: -webkit-fill-available;
+            }
+            
+            .mobile-app {
+                height: -webkit-fill-available;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-app">
+        <!-- शीर्ष भाग - फिक्स्ड इमेज (index.html प्रमाणे) -->
+        <div class="header-image">
+            <!-- टॉप मेनू बटन -->
+            <button class="top-menu-icon" id="hamburgerBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- साइड मेनू -->
+        <div class="menu-overlay" id="menuOverlay"></div>
+        <div class="side-menu" id="sideMenu">
+            <div class="menu-header">
+                <i class="fas fa-heart"></i> SweetName
+                <button class="menu-close-btn" id="closeMenuBtn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <ul class="menu-items">
+                <li class="menu-item" id="homeMenuItem">
+                    <i class="fas fa-home"></i>
+                    <span>होम</span>
+                </li>
+                <li class="menu-item" id="aboutMenuItem">
+                    <i class="fas fa-info-circle"></i>
+                    <span>आमच्याबद्दल</span>
+                </li>
+                <li class="menu-item" id="blogMenuItem">
+                    <i class="fas fa-newspaper"></i>
+                    <span>ब्लॉग</span>
+                </li>
+                <li class="menu-item" id="disclaimerMenuItem">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>डिस्क्लेमर</span>
+                </li>
+                <li class="menu-item" id="privacyMenuItem">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>प्रायव्हेसी पॉलिसी</span>
+                </li>
+                <li class="menu-item" id="termsMenuItem">
+                    <i class="fas fa-file-contract"></i>
+                    <span>टर्म्स ऑफ सर्व्हिस</span>
+                </li>
+                <li class="menu-item" id="contactMenuItem">
+                    <i class="fas fa-envelope"></i>
+                    <span>संपर्क</span>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- मुख्य सामग्री -->
+        <div class="content">
+            <!-- पेज हेडर -->
+            <div class="page-header">
+                <h1 class="page-title">नाम संग्रह कॅटेगरी</h1>
+                <a href="index.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i> मागे जा
+                </a>
+            </div>
+            
+            <!-- फिल्टर टॅब्स -->
+            <div class="filter-tabs">
+                <div class="tabs-container">
+                    <button class="tab-btn active" data-filter="all">सर्व</button>
+                    <button class="tab-btn" data-filter="popular">लोकप्रिय</button>
+                    <button class="tab-btn" data-filter="traditional">पारंपरिक</button>
+                    <button class="tab-btn" data-filter="modern">आधुनिक</button>
+                </div>
+            </div>
+            
+            <!-- कॅटेगरी ग्रिड -->
+            <div class="categories-grid" id="categoriesContainer">
+                <!-- कॅटेगरी डेटा JavaScript मधून भरले जाईल -->
+            </div>
+            
+            <!-- डिस्क्रिप्शन सेक्शन -->
+            <div class="description-section">
+                <div class="description-text">
+                    <em>एक्सेल फाईलमधील सर्व कॅटेगरीज येथे सुव्यवस्थित रीतीने दाखवल्या आहेत. प्रत्येक मुख्य कॅटेगरी उघडून त्यातील सब-कॅटेगरीज पहा आणि तुमच्या आवडीप्रमाणे नावे शोधा.</em>
+                </div>
+            </div>
+            
+            <!-- शेअर धिस app बटन -->
+            <div class="share-app-section">
+                <a href="invite-friends.html" class="share-app-btn">
+                    <i class="fas fa-share-alt"></i>
+                    <span>App शेअर करा</span>
+                </a>
+            </div>
+        </div>
+        
+        <!-- बॉटम नेव्हिगेशन मेन्यू -->
+        <div class="bottom-nav">
+            <a href="index.html" class="nav-item">
+                <div class="nav-icon">
+                    <i class="fas fa-home"></i>
+                </div>
+                <div class="nav-text">Home</div>
+            </a>
+            <a href="categories.html" class="nav-item active">
+                <div class="nav-icon">
+                    <i class="fas fa-th-large"></i>
+                </div>
+                <div class="nav-text">Categories</div>
+            </a>
+            <a href="search.html" class="nav-item">
+                <div class="nav-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="nav-text">Search</div>
+            </a>
+            <a href="favorites.html" class="nav-item">
+                <div class="nav-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="nav-text">Favorites</div>
+            </a>
+            <a href="invite.html" class="nav-item">
+                <div class="nav-icon">
+                    <i class="fas fa-share-alt"></i>
+                </div>
+                <div class="nav-text">Invite</div>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // एक्सेल डेटा - कॅटेगरी आणि सब-कॅटेगरीज
+        const allCategoryData = [
+            {
+                id: 1,
+                name: "संस्कृती संचित नावे",
+                icon: "fas fa-landmark",
+                type: "traditional",
+                subcategories: [
+                    { name: "देवतांची नांवे", desc: "देव-देवतांची नावे", icon: "fas fa-star-and-crescent", link: "deities-names.html" },
+                    { name: "पुरातन वारसा", desc: "प्राचीन परंपरेतील नावे", icon: "fas fa-history", link: "ancient-heritage.html" },
+                    { name: "वैदिक ठेवा", desc: "वैदिक काळातील नावे", icon: "fas fa-book", link: "vedic-treasure.html" }
+                ]
+            },
+            {
+                id: 2,
+                name: "प्रांतीय परिभाषा",
+                icon: "fas fa-globe-asia",
+                type: "traditional",
+                subcategories: [
+                    { name: "मराठी नावे", desc: "मराठी भाषेतील नावे", icon: "fas fa-language", link: "marathi-names.html" },
+                    { name: "संस्कृत नावे", desc: "संस्कृत भाषेतील नावे", icon: "fas fa-om", link: "sanskrit-names.html" },
+                    { name: "मराठी भाषेत रुजलेली हिंदी नावे", desc: "हिंदी नावांचा मराठीकरण", icon: "fas fa-flag", link: "hindi-names.html" },
+                    { name: "मराठी भाषेत रुजलेली तामिळ नावे", desc: "तामिळ नावांचा मराठीकरण", icon: "fas fa-language", link: "tamil-names.html" },
+                    { name: "मराठी भाषेत रुजलेली तेलगु नावे", desc: "तेलगु नावांचा मराठीकरण", icon: "fas fa-language", link: "telugu-names.html" },
+                    { name: "मराठी भाषेत रुजलेली कन्नड नावे", desc: "कन्नड नावांचा मराठीकरण", icon: "fas fa-language", link: "kannada-names.html" }
+                ]
+            },
+            {
+                id: 3,
+                name: "विश्वसंस्कृती नामसंग्रह",
+                icon: "fas fa-globe",
+                type: "modern",
+                subcategories: [
+                    { name: "मराठी भाषेत रुजलेली इस्लामिक नावे", desc: "इस्लामिक नावांचा मराठीकरण", icon: "fas fa-star-and-crescent", link: "islamic-names.html" },
+                    { name: "मराठी भाषेत रुजलेली अरबी नावे", desc: "अरबी नावांचा मराठीकरण", icon: "fas fa-kaaba", link: "arabic-names.html" },
+                    { name: "मराठी भाषेत रुजलेली ख्रिश्चन नावे", desc: "ख्रिश्चन नावांचा मराठीकरण", icon: "fas fa-cross", link: "christian-names.html" },
+                    { name: "मराठी भाषेत रुजलेली ग्रीक नावे", desc: "ग्रीक नावांचा मराठीकरण", icon: "fas fa-columns", link: "greek-names.html" },
+                    { name: "मराठी भाषेत रुजलेली रोमन नावे", desc: "रोमन नावांचा मराठीकरण", icon: "fas fa-landmark", link: "roman-names.html" },
+                    { name: "मराठी भाषेत रुजलेली इंग्लिश नावे", desc: "इंग्लिश नावांचा मराठीकरण", icon: "fas fa-flag-usa", link: "english-names.html" }
+                ]
+            },
+            {
+                id: 4,
+                name: "प्रेरणादायी नामसंग्रह",
+                icon: "fas fa-lightbulb",
+                type: "popular",
+                subcategories: [
+                    { name: "क्रांतीपर्वाचे नायक", desc: "क्रांतिकारकांची नावे", icon: "fas fa-flag", link: "revolutionary-heroes.html" },
+                    { name: "संशोधन महर्षी", desc: "संशोधकांची नावे", icon: "fas fa-flask", link: "research-sages.html" },
+                    { name: "कलासाधक", desc: "कलाकारांची नावे", icon: "fas fa-palette", link: "artists.html" },
+                    { name: "शब्दशिल्पकार", desc: "लेखकांची नावे", icon: "fas fa-pen-fancy", link: "writers.html" },
+                    { name: "सेलिब्रिटी चॉईस", desc: "सेलिब्रिटींची नावे", icon: "fas fa-star", link: "celebrity-choice.html" },
+                    { name: "गौरवशाली", desc: "गौरवशाली व्यक्तींची नावे", icon: "fas fa-crown", link: "glorious-names.html" }
+                ]
+            },
+            {
+                id: 5,
+                name: "नक्षत्रांकित नामसूची",
+                icon: "fas fa-star",
+                type: "traditional",
+                subcategories: [
+                    { name: "राशीरत्न", desc: "राशीनुसार नावे", icon: "fas fa-gem", link: "zodiac-gems.html" },
+                    { name: "नक्षत्रवेध", desc: "नक्षत्रानुसार नावे", icon: "fas fa-star", link: "nakshatra-based.html" },
+                    { name: "शास्त्रोक्त", desc: "ज्योतिषशास्त्रानुसार नावे", icon: "fas fa-book-open", link: "astrological.html" },
+                    { name: "जन्मतिथी", desc: "जन्मतिथीनुसार नावे", icon: "fas fa-birthday-cake", link: "birthdate-names.html" },
+                    { name: "चैतन्यमयी", desc: "उर्जावान नावे", icon: "fas fa-sun", link: "energetic-names.html" }
+                ]
+            },
+            {
+                id: 6,
+                name: "गुणांकुर अभिधान",
+                icon: "fas fa-seedling",
+                type: "popular",
+                subcategories: [
+                    { name: "ज्ञान वैशिष्ट्यांवर आधारित नावे", desc: "ज्ञानावर आधारित नावे", icon: "fas fa-brain", link: "knowledge-names.html" },
+                    { name: "विवेक वैशिष्ट्यांवर आधारित नावे", desc: "विवेकावर आधारित नावे", icon: "fas fa-balance-scale", link: "wisdom-names.html" },
+                    { name: "साहस वैशिष्ट्यांवर आधारित नावे", desc: "साहसावर आधारित नावे", icon: "fas fa-shield-alt", link: "courage-names.html" },
+                    { name: "करुणा वैशिष्ट्यांवर आधारित नावे", desc: "करुणावर आधारित नावे", icon: "fas fa-heart", link: "compassion-names.html" },
+                    { name: "दया वैशिष्ट्यांवर आधारित नावे", desc: "दयेवर आधारित नावे", icon: "fas fa-hands-helping", link: "mercy-names.html" },
+                    { name: "उत्साह वैशिष्ट्यांवर आधारित नावे", desc: "उत्साहावर आधारित नावे", icon: "fas fa-fire", link: "enthusiasm-names.html" }
+                ]
+            },
+            {
+                id: 7,
+                name: "नैसर्गिक स्पर्श संज्ञा",
+                icon: "fas fa-leaf",
+                type: "modern",
+                subcategories: [
+                    { name: "फुलांची नावे", desc: "फुलांच्या नावांवर आधारित", icon: "fas fa-flower", link: "flower-names.html" },
+                    { name: "वृक्षांची नावे", desc: "वृक्षांच्या नावांवर आधारित", icon: "fas fa-tree", link: "tree-names.html" },
+                    { name: "नद्यांची नावे", desc: "नद्यांच्या नावांवर आधारित", icon: "fas fa-water", link: "river-names.html" },
+                    { name: "पर्वतांची नावे", desc: "पर्वतांच्या नावांवर आधारित", icon: "fas fa-mountain", link: "mountain-names.html" },
+                    { name: "ऋतूंची नावे", desc: "ऋतूंच्या नावांवर आधारित", icon: "fas fa-cloud-sun", link: "season-names.html" },
+                    { name: "रंगांची नावे", desc: "रंगांच्या नावांवर आधारित", icon: "fas fa-palette", link: "color-names.html" }
+                ]
+            },
+            {
+                id: 8,
+                name: "तेजस्वी नामसंग्रह",
+                icon: "fas fa-bolt",
+                type: "modern",
+                subcategories: [
+                    { name: "टॉप ट्रेंडिंग", desc: "सध्या ट्रेंडिंग असलेली नावे", icon: "fas fa-chart-line", link: "trending-names.html" },
+                    { name: "क्लासिकल", desc: "क्लासिकल स्टाईलमधील नावे", icon: "fas fa-crown", link: "classical-names.html" },
+                    { name: "दुर्मिळ", desc: "क्वचितच ऐकिवात असलेली नावे", icon: "fas fa-gem", link: "rare-names.html" },
+                    { name: "प्रभावशाली", desc: "प्रभावशाली व्यक्तींची नावे", icon: "fas fa-user-tie", link: "influential-names.html" },
+                    { name: "पौराणिक", desc: "पौराणिक कथांतील नावे", icon: "fas fa-book-open", link: "mythological-names.html" }
+                ]
+            }
+        ];
+
+        // लोकप्रिय कॅटेगरीज
+        const popularCategories = allCategoryData.filter(cat => cat.type === "popular");
+        
+        // पारंपरिक कॅटेगरीज
+        const traditionalCategories = allCategoryData.filter(cat => cat.type === "traditional");
+        
+        // आधुनिक कॅटेगरीज
+        const modernCategories = allCategoryData.filter(cat => cat.type === "modern");
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // हॅमबर्गर मेनू फंक्शन
+            const hamburgerBtn = document.getElementById('hamburgerBtn');
+            const sideMenu = document.getElementById('sideMenu');
+            const menuOverlay = document.getElementById('menuOverlay');
+            const closeMenuBtn = document.getElementById('closeMenuBtn');
+            
+            hamburgerBtn.addEventListener('click', function() {
+                sideMenu.classList.add('active');
+                menuOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+            
+            closeMenuBtn.addEventListener('click', function() {
+                sideMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+            
+            menuOverlay.addEventListener('click', function() {
+                sideMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+            
+            // साइड मेनू आयटम्स
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const itemText = this.querySelector('span').textContent;
+                    console.log(`${itemText} पेज दाखवला जाईल`);
+                    sideMenu.classList.remove('active');
+                    menuOverlay.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                });
+            });
+            
+            // कॅटेगरी कंटेनर
+            const categoriesContainer = document.getElementById('categoriesContainer');
+            
+            // कॅटेगरी लोड करण्याचे फंक्शन
+            function loadCategories(categories) {
+                categoriesContainer.innerHTML = '';
+                
+                categories.forEach(category => {
+                    const categoryElement = document.createElement('div');
+                    categoryElement.className = 'main-category';
+                    categoryElement.dataset.id = category.id;
+                    
+                    // सब-कॅटेगरी HTML तयार करा
+                    let subcategoriesHTML = '';
+                    category.subcategories.forEach(sub => {
+                        subcategoriesHTML += `
+                        <a href="${sub.link}" class="subcategory-item" data-category="${category.id}">
+                            <div class="subcategory-icon">
+                                <i class="${sub.icon}"></i>
+                            </div>
+                            <div class="subcategory-info">
+                                <h4 class="subcategory-name">${sub.name}</h4>
+                                <p class="subcategory-desc">${sub.desc}</p>
+                            </div>
+                            <div class="arrow-icon">
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </a>
+                        `;
+                    });
+                    
+                    categoryElement.innerHTML = `
+                    <div class="category-header">
+                        <div class="category-icon">
+                            <i class="${category.icon}"></i>
+                        </div>
+                        <div class="category-info">
+                            <h3 class="category-name">${category.name}</h3>
+                        </div>
+                        <div class="toggle-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="subcategories">
+                        ${subcategoriesHTML}
+                    </div>
+                    `;
+                    
+                    categoriesContainer.appendChild(categoryElement);
+                });
+                
+                // कॅटेगरी टॉगल फंक्शन
+                document.querySelectorAll('.category-header').forEach(header => {
+                    header.addEventListener('click', function() {
+                        const category = this.parentElement;
+                        category.classList.toggle('active');
+                    });
+                });
+                
+                // सब-कॅटेगरी क्लिक इव्हेंट
+                document.querySelectorAll('.subcategory-item').forEach(item => {
+                    item.addEventListener('click', function(e) {
+                        const subcategoryName = this.querySelector('.subcategory-name').textContent;
+                        console.log(`"${subcategoryName}" सब-कॅटेगरीवर क्लिक केले! पेजवर रिडायरेक्ट होत आहे...`);
+                        // लिंकवर रिडायरेक्ट होईल
+                    });
+                });
+            }
+            
+            // डिफॉल्ट सर्व कॅटेगरीज लोड करा
+            loadCategories(allCategoryData);
+            
+            // फिल्टर टॅब फंक्शन
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.tab-btn').forEach(b => {
+                        b.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    
+                    const filter = this.dataset.filter;
+                    
+                    // फिल्टरनुसार कॅटेगरीज लोड करा
+                    switch(filter) {
+                        case 'all':
+                            loadCategories(allCategoryData);
+                            break;
+                        case 'popular':
+                            loadCategories(popularCategories);
+                            break;
+                        case 'traditional':
+                            loadCategories(traditionalCategories);
+                            break;
+                        case 'modern':
+                            loadCategories(modernCategories);
+                            break;
+                    }
+                    
+                    console.log(`फिल्टर लागू केला: ${filter}`);
+                });
+            });
+            
+            // शेअर app बटन क्लिक इव्हेंट
+            const shareAppBtn = document.querySelector('.share-app-btn');
+            if (shareAppBtn) {
+                shareAppBtn.addEventListener('click', function() {
+                    console.log('App शेअर केले जाईल!');
+                });
+            }
+            
+            // बॉटम नेव्हिगेशन क्लिक इव्हेंट
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    document.querySelectorAll('.nav-item').forEach(nav => {
+                        nav.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    
+                    const navText = this.querySelector('.nav-text').textContent;
+                    console.log(`नेव्हिगेट करा: ${navText}`);
+                });
+            });
+            
+            // स्क्रीन फुल स्क्रीन फिट करणे
+            function adjustForMobile() {
+                const vh = window.innerHeight * 0.01;
+                document.documentElement.style.setProperty('--vh', `${vh}px`);
+                
+                const mobileApp = document.querySelector('.mobile-app');
+                const content = document.querySelector('.content');
+                
+                if (window.innerWidth <= 480) {
+                    mobileApp.style.height = '100vh';
+                    content.style.paddingBottom = '100px';
+                }
+                
+                if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
+                    document.body.style.height = 'calc(var(--vh, 1vh) * 100)';
+                    mobileApp.style.height = 'calc(var(--vh, 1vh) * 100)';
+                }
+            }
+            
+            window.addEventListener('load', adjustForMobile);
+            window.addEventListener('resize', adjustForMobile);
+            window.addEventListener('orientationchange', adjustForMobile);
+            adjustForMobile();
+            
+            if ('ontouchstart' in window) {
+                document.querySelectorAll('.category-header, .subcategory-item, .nav-item, .menu-item, .share-app-btn').forEach(element => {
+                    element.addEventListener('touchstart', function() {
+                        this.classList.add('touch-active');
+                    });
+                    
+                    element.addEventListener('touchend', function() {
+                        this.classList.remove('touch-active');
+                    });
+                });
+            }
+            
+            // पहिली दोन कॅटेगरी उघड्या ठेवा
+            setTimeout(() => {
+                const firstTwoCategories = document.querySelectorAll('.main-category');
+                if (firstTwoCategories.length >= 2) {
+                    firstTwoCategories[0].classList.add('active');
+                    firstTwoCategories[1].classList.add('active');
+                }
+            }, 500);
+        });
+    </script>
+</body>
+</html>
