@@ -265,152 +265,300 @@
             box-shadow: 0 4px 12px rgba(106, 17, 203, 0.3);
         }
         
-        /* कॅटेगरी ग्रिड - आकर्षक डिझाईन */
+        /* नवीन कॅटेगरी ग्रिड डिझाईन - अत्यंत आकर्षक */
         .categories-grid {
             display: grid;
             grid-template-columns: repeat(1, 1fr);
-            gap: 12px;
+            gap: 18px;
             width: 100%;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         
         .main-category {
-            background: white;
-            border-radius: 16px;
+            background: linear-gradient(145deg, #ffffff 0%, #f9f9f9 100%);
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.06);
-            transition: all 0.3s ease;
-            border: 1px solid #e2e8f0;
+            box-shadow: 0 10px 30px rgba(106, 17, 203, 0.08);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #eef2ff;
+            position: relative;
+            isolation: isolate;
+        }
+        
+        .main-category::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #6a11cb 0%, #2575fc 50%, #6a11cb 100%);
+            background-size: 200% 100%;
+            z-index: 2;
+            border-radius: 20px 20px 0 0;
         }
         
         .main-category:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(106, 17, 203, 0.12);
-            border-color: rgba(106, 17, 203, 0.2);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(106, 17, 203, 0.15);
+            border-color: rgba(106, 17, 203, 0.3);
+        }
+        
+        .main-category.active {
+            box-shadow: 0 15px 35px rgba(106, 17, 203, 0.2);
         }
         
         .category-header {
-            padding: 15px;
-            background: linear-gradient(135deg, #f8f9fa 0%, #eef2ff 100%);
+            padding: 20px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 18px;
             cursor: pointer;
             transition: all 0.3s ease;
+            position: relative;
+            background: white;
         }
         
         .category-header:hover {
-            background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+            background: linear-gradient(135deg, #f9f5ff 0%, #f0f4ff 100%);
+        }
+        
+        .category-icon-container {
+            position: relative;
+            width: 60px;
+            height: 60px;
+            flex-shrink: 0;
+        }
+        
+        .category-icon-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 18px;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            opacity: 0.1;
+            z-index: 1;
         }
         
         .category-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 14px;
+            position: relative;
+            width: 60px;
+            height: 60px;
+            border-radius: 18px;
             background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
             display: flex;
             justify-content: center;
             align-items: center;
             color: white;
-            font-size: 22px;
+            font-size: 24px;
             flex-shrink: 0;
-            box-shadow: 0 4px 10px rgba(106, 17, 203, 0.25);
+            box-shadow: 0 8px 20px rgba(106, 17, 203, 0.3);
+            z-index: 2;
+            transition: all 0.4s ease;
+        }
+        
+        .main-category:hover .category-icon {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 12px 25px rgba(106, 17, 203, 0.4);
         }
         
         .category-info {
             flex: 1;
+            min-width: 0;
         }
         
         .category-name {
-            font-size: 16px;
+            font-size: 17px;
             font-weight: 800;
             color: #2d3748;
             line-height: 1.3;
+            margin-bottom: 6px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .category-count {
+            font-size: 12px;
+            color: #718096;
+            font-weight: 600;
+            background: rgba(113, 128, 150, 0.08);
+            padding: 4px 10px;
+            border-radius: 12px;
+            display: inline-block;
         }
         
         .toggle-icon {
-            font-size: 16px;
+            font-size: 18px;
             color: #6a11cb;
-            transition: transform 0.3s ease;
+            transition: all 0.4s ease;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            background: rgba(106, 17, 203, 0.08);
+            flex-shrink: 0;
         }
         
         .main-category.active .toggle-icon {
             transform: rotate(180deg);
+            background: rgba(106, 17, 203, 0.15);
         }
         
-        /* सब-कॅटेगरीज - उंची 35% कमी केली */
+        /* सब-कॅटेगरीज - नवीन डिझाईन */
         .subcategories {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.4s ease;
-            background: #f8fafc;
+            transition: max-height 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            background: linear-gradient(180deg, #f8faff 0%, #ffffff 100%);
+            border-top: 1px solid rgba(106, 17, 203, 0.1);
         }
         
         .main-category.active .subcategories {
-            max-height: 250px; /* उंची कमी केली */
+            max-height: 380px;
+            overflow-y: auto;
         }
         
         .subcategory-item {
-            padding: 12px 15px; /* पेडिंग कमी केले */
-            border-bottom: 1px solid #e2e8f0;
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.6);
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 16px;
             transition: all 0.3s ease;
             cursor: pointer;
             text-decoration: none;
             color: inherit;
+            position: relative;
+            overflow: hidden;
         }
         
         .subcategory-item:last-child {
             border-bottom: none;
         }
         
+        .subcategory-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(106, 17, 203, 0.05), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .subcategory-item:hover::before {
+            left: 100%;
+        }
+        
         .subcategory-item:hover {
-            background-color: #f1f5f9;
-            padding-left: 20px;
+            background-color: rgba(106, 17, 203, 0.04);
+            padding-left: 24px;
+        }
+        
+        .subcategory-icon-container {
+            position: relative;
+            width: 46px;
+            height: 46px;
+            flex-shrink: 0;
+        }
+        
+        .subcategory-icon-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+            background: rgba(106, 17, 203, 0.08);
+            z-index: 1;
         }
         
         .subcategory-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
-            background: rgba(106, 17, 203, 0.1);
+            position: relative;
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            background: white;
             display: flex;
             justify-content: center;
             align-items: center;
             color: #6a11cb;
-            font-size: 14px;
+            font-size: 18px;
             flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            z-index: 2;
+            border: 1px solid rgba(106, 17, 203, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .subcategory-item:hover .subcategory-icon {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 16px rgba(106, 17, 203, 0.15);
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            border-color: transparent;
         }
         
         .subcategory-info {
             flex: 1;
+            min-width: 0;
         }
         
         .subcategory-name {
-            font-size: 14px;
-            font-weight: 700;
+            font-size: 15px;
+            font-weight: 800;
             color: #2d3748;
-            line-height: 1.2;
+            line-height: 1.3;
+            margin-bottom: 4px;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: color 0.3s ease;
+        }
+        
+        .subcategory-item:hover .subcategory-name {
+            color: #6a11cb;
         }
         
         .subcategory-desc {
-            font-size: 11px;
-            color: #718096;
-            line-height: 1.2;
-            margin-top: 2px;
-        }
-        
-        .arrow-icon {
-            color: #a0aec0;
             font-size: 12px;
-            transition: transform 0.3s ease;
+            color: #718096;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         
-        .subcategory-item:hover .arrow-icon {
-            transform: translateX(5px);
+        .subcategory-arrow {
+            color: #a0aec0;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background: rgba(160, 174, 192, 0.08);
+            flex-shrink: 0;
+        }
+        
+        .subcategory-item:hover .subcategory-arrow {
+            transform: translateX(6px);
             color: #6a11cb;
+            background: rgba(106, 17, 203, 0.1);
         }
         
         /* डिस्क्रिप्शन सेक्शन */
@@ -558,32 +706,64 @@
             border-radius: 10px;
         }
         
+        .subcategories::-webkit-scrollbar {
+            width: 4px;
+        }
+        
+        .subcategories::-webkit-scrollbar-track {
+            background: rgba(106, 17, 203, 0.05);
+            border-radius: 10px;
+        }
+        
+        .subcategories::-webkit-scrollbar-thumb {
+            background: rgba(106, 17, 203, 0.2);
+            border-radius: 10px;
+        }
+        
         /* रेस्पॉन्सिव्हनेस - मोबाईल फिट */
         @media (max-width: 768px) {
             .categories-grid {
-                gap: 10px;
+                gap: 15px;
             }
             
             .category-header {
-                padding: 14px;
+                padding: 16px;
+                gap: 15px;
+            }
+            
+            .category-icon-container {
+                width: 56px;
+                height: 56px;
             }
             
             .category-icon {
-                width: 48px;
-                height: 48px;
-                font-size: 20px;
+                width: 56px;
+                height: 56px;
+                font-size: 22px;
             }
             
             .category-name {
-                font-size: 15px;
+                font-size: 16px;
             }
             
             .subcategory-item {
-                padding: 11px 14px;
+                padding: 14px 18px;
+                gap: 14px;
+            }
+            
+            .subcategory-icon-container {
+                width: 42px;
+                height: 42px;
+            }
+            
+            .subcategory-icon {
+                width: 42px;
+                height: 42px;
+                font-size: 16px;
             }
             
             .main-category.active .subcategories {
-                max-height: 220px;
+                max-height: 350px;
             }
         }
         
@@ -602,30 +782,68 @@
                 font-size: 20px;
             }
             
+            .categories-grid {
+                gap: 12px;
+            }
+            
             .category-header {
-                padding: 12px;
+                padding: 14px;
+                gap: 12px;
+            }
+            
+            .category-icon-container {
+                width: 50px;
+                height: 50px;
             }
             
             .category-icon {
-                width: 45px;
-                height: 45px;
-                font-size: 18px;
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+                border-radius: 14px;
+            }
+            
+            .category-icon-bg {
+                border-radius: 14px;
             }
             
             .category-name {
-                font-size: 14px;
+                font-size: 15px;
+            }
+            
+            .toggle-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 16px;
             }
             
             .subcategory-item {
-                padding: 10px 12px;
+                padding: 12px 16px;
+                gap: 12px;
+            }
+            
+            .subcategory-icon-container {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .subcategory-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 15px;
+                border-radius: 10px;
+            }
+            
+            .subcategory-icon-bg {
+                border-radius: 10px;
             }
             
             .subcategory-name {
-                font-size: 13px;
+                font-size: 14px;
             }
             
             .subcategory-desc {
-                font-size: 10px;
+                font-size: 11px;
             }
             
             .content {
@@ -640,7 +858,7 @@
             }
             
             .main-category.active .subcategories {
-                max-height: 200px;
+                max-height: 320px;
             }
             
             .tab-btn {
@@ -655,11 +873,16 @@
             }
             
             .category-name {
-                font-size: 13px;
+                font-size: 14px;
+            }
+            
+            .category-count {
+                font-size: 11px;
+                padding: 3px 8px;
             }
             
             .subcategory-name {
-                font-size: 12px;
+                font-size: 13px;
             }
             
             .share-app-btn {
@@ -674,7 +897,7 @@
             }
             
             .main-category.active .subcategories {
-                max-height: 180px;
+                max-height: 300px;
             }
         }
         
@@ -684,14 +907,24 @@
             }
             
             .category-header {
-                padding: 10px;
+                padding: 12px;
                 gap: 10px;
             }
             
+            .category-icon-container {
+                width: 46px;
+                height: 46px;
+            }
+            
             .category-icon {
-                width: 40px;
-                height: 40px;
-                font-size: 16px;
+                width: 46px;
+                height: 46px;
+                font-size: 18px;
+                border-radius: 12px;
+            }
+            
+            .category-icon-bg {
+                border-radius: 12px;
             }
             
             .share-app-btn {
@@ -701,7 +934,7 @@
             }
             
             .main-category.active .subcategories {
-                max-height: 160px;
+                max-height: 280px;
             }
         }
         
@@ -710,6 +943,17 @@
             from { 
                 opacity: 0; 
                 transform: translateY(25px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+        
+        @keyframes slideDown {
+            from { 
+                opacity: 0; 
+                transform: translateY(-10px); 
             }
             to { 
                 opacity: 1; 
@@ -727,6 +971,11 @@
         .categories-grid { animation-delay: 0.3s; }
         .description-section { animation-delay: 0.4s; }
         
+        .subcategory-item {
+            animation: slideDown 0.5s ease-out forwards;
+            opacity: 0;
+        }
+        
         /* मोबाईल डिव्हाईससाठी विशेष */
         @supports (-webkit-touch-callout: none) {
             body {
@@ -736,6 +985,12 @@
             .mobile-app {
                 height: -webkit-fill-available;
             }
+        }
+        
+        /* कॅटेगरी फिल्टर अॅनिमेशन */
+        .main-category {
+            animation: fadeInUp 0.5s ease-out forwards;
+            opacity: 0;
         }
     </style>
 </head>
@@ -1031,24 +1286,28 @@
             function loadCategories(categories) {
                 categoriesContainer.innerHTML = '';
                 
-                categories.forEach(category => {
+                categories.forEach((category, index) => {
                     const categoryElement = document.createElement('div');
                     categoryElement.className = 'main-category';
                     categoryElement.dataset.id = category.id;
+                    categoryElement.style.animationDelay = `${index * 0.05}s`;
                     
                     // सब-कॅटेगरी HTML तयार करा
                     let subcategoriesHTML = '';
-                    category.subcategories.forEach(sub => {
+                    category.subcategories.forEach((sub, subIndex) => {
                         subcategoriesHTML += `
-                        <a href="${sub.link}" class="subcategory-item" data-category="${category.id}">
-                            <div class="subcategory-icon">
-                                <i class="${sub.icon}"></i>
+                        <a href="${sub.link}" class="subcategory-item" data-category="${category.id}" style="animation-delay: ${subIndex * 0.05}s">
+                            <div class="subcategory-icon-container">
+                                <div class="subcategory-icon-bg"></div>
+                                <div class="subcategory-icon">
+                                    <i class="${sub.icon}"></i>
+                                </div>
                             </div>
                             <div class="subcategory-info">
                                 <h4 class="subcategory-name">${sub.name}</h4>
                                 <p class="subcategory-desc">${sub.desc}</p>
                             </div>
-                            <div class="arrow-icon">
+                            <div class="subcategory-arrow">
                                 <i class="fas fa-chevron-right"></i>
                             </div>
                         </a>
@@ -1057,11 +1316,15 @@
                     
                     categoryElement.innerHTML = `
                     <div class="category-header">
-                        <div class="category-icon">
-                            <i class="${category.icon}"></i>
+                        <div class="category-icon-container">
+                            <div class="category-icon-bg"></div>
+                            <div class="category-icon">
+                                <i class="${category.icon}"></i>
+                            </div>
                         </div>
                         <div class="category-info">
                             <h3 class="category-name">${category.name}</h3>
+                            <span class="category-count">${category.subcategories.length} सब-कॅटेगरीज</span>
                         </div>
                         <div class="toggle-icon">
                             <i class="fas fa-chevron-down"></i>
@@ -1079,7 +1342,17 @@
                 document.querySelectorAll('.category-header').forEach(header => {
                     header.addEventListener('click', function() {
                         const category = this.parentElement;
-                        category.classList.toggle('active');
+                        const isActive = category.classList.contains('active');
+                        
+                        // सर्व कॅटेगरीज बंद करा
+                        document.querySelectorAll('.main-category').forEach(cat => {
+                            cat.classList.remove('active');
+                        });
+                        
+                        // जर पहिल्यांदाच उघडत असेल तर उघडा
+                        if (!isActive) {
+                            category.classList.add('active');
+                        }
                     });
                 });
                 
@@ -1190,7 +1463,7 @@
                     firstTwoCategories[0].classList.add('active');
                     firstTwoCategories[1].classList.add('active');
                 }
-            }, 500);
+            }, 800);
         });
     </script>
 </body>
