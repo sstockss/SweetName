@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>नाम संग्रह कॅटेगरी | SweetNames</title>
+    <title>नामसंग्रह | SweetNames</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -570,6 +570,10 @@
             border: 1px solid #b3d1ff;
             position: relative;
             overflow: hidden;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			min-height: 100px;
         }
         
         .description-section:before {
@@ -583,10 +587,11 @@
         }
         
         .description-text {
-            font-size: 13px;
+            font-size: 15px;
             line-height: 1.5;
             color: #2d3748;
             text-align: center;
+			margin: 0;
         }
         
         .description-text em {
@@ -1049,7 +1054,7 @@
         <div class="content">
             <!-- पेज हेडर -->
             <div class="page-header">
-                <h1 class="page-title">नाम संग्रह कॅटेगरी</h1>
+                <h1 class="page-title">नामसंग्रह</h1>
                 <a href="index.html" class="back-btn">
                     <i class="fas fa-arrow-left"></i> मागे जा
                 </a>
@@ -1073,7 +1078,7 @@
             <!-- डिस्क्रिप्शन सेक्शन -->
             <div class="description-section">
                 <div class="description-text">
-                    <em>एक्सेल फाईलमधील सर्व कॅटेगरीज येथे सुव्यवस्थित रीतीने दाखवल्या आहेत. प्रत्येक मुख्य कॅटेगरी उघडून त्यातील सब-कॅटेगरीज पहा आणि तुमच्या आवडीप्रमाणे नावे शोधा.</em>
+                    <em>आमच्या खास नामसंग्रहातून निवडा तुमच्या बाळाच्या आयुष्यातील पहिली आणि सर्वात मौल्यवान ओळख, --- एक गोंडस नाव !</em>
                 </div>
             </div>
             
@@ -1081,7 +1086,7 @@
             <div class="share-app-section">
                 <a href="invite-friends.html" class="share-app-btn">
                     <i class="fas fa-share-alt"></i>
-                    <span>App शेअर करा</span>
+                    <span>Invite your friends to join</span>
                 </a>
             </div>
         </div>
@@ -1130,7 +1135,7 @@
                 icon: "fas fa-landmark",
                 type: "traditional",
                 subcategories: [
-                    { name: "देवतांची नांवे", desc: "देव-देवतांची नावे", icon: "fas fa-star-and-crescent", link: "deities-names.html" },
+                    { name: "देवतांची नांवे", desc: "देव-देवतांची नावे", icon: "fas fa-star", link: "deities-names.html" },
                     { name: "पुरातन वारसा", desc: "प्राचीन परंपरेतील नावे", icon: "fas fa-history", link: "ancient-heritage.html" },
                     { name: "वैदिक ठेवा", desc: "वैदिक काळातील नावे", icon: "fas fa-book", link: "vedic-treasure.html" }
                 ]
@@ -1324,7 +1329,7 @@
                         </div>
                         <div class="category-info">
                             <h3 class="category-name">${category.name}</h3>
-                            <span class="category-count">${category.subcategories.length} सब-कॅटेगरीज</span>
+                            <span class="category-count">${category.subcategories.length} Sub Categories</span>
                         </div>
                         <div class="toggle-icon">
                             <i class="fas fa-chevron-down"></i>
@@ -1458,11 +1463,7 @@
             
             // पहिली दोन कॅटेगरी उघड्या ठेवा
             setTimeout(() => {
-                const firstTwoCategories = document.querySelectorAll('.main-category');
-                if (firstTwoCategories.length >= 2) {
-                    firstTwoCategories[0].classList.add('active');
-                    firstTwoCategories[1].classList.add('active');
-                }
+                console.log("सर्व कॅटेगरीज सुरुवातीस बंद ठेवल्या आहेत");
             }, 800);
         });
     </script>
